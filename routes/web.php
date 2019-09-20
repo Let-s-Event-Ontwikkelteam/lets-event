@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
+/* Account settings */
+Route::middleware(['auth'])->group(function () {
+	Route::get('/user/settings', 'UserController@showAllUserInfo')->name('user.settings');
+	Route::post('/user/settings/update', 'UserController@updateUserInfo')->name('user.post_settings');
+});
