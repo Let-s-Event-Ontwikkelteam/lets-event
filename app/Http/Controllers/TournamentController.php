@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class TournamentController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
 
     /**
@@ -23,6 +23,9 @@ class TournamentController extends Controller
      */
     public function index()
     {
+
+
+
         return view('tournament.index');
     }
 
@@ -44,7 +47,19 @@ class TournamentController extends Controller
      */
     public function store(Request $request)
     {   
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'description' => 'required|string|max:255',
+            'start-date-time' => 'required|date'
+        ]);
+
+        $tournament = new Tournament();
+        $tournament->name = $request->get('name');
+        $tournament->description = $request->get('description');
+        $tournament->start_date_time = $request->get('start-date-time');
+        $tournament->save();
+        
+        return redirect()->route('tournament.index');
     }
 
     /**
@@ -53,9 +68,9 @@ class TournamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tournament $tournament)
     {
-        return view('tournament.show');
+        return view('tournament.show')->compact('tournament');
     }
 
     /**

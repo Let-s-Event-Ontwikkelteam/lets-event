@@ -4,4 +4,6 @@
 
 <h1 class="text-center"> dit is de show page </h1>
 
+{{ $id }}
+
 @endsection
