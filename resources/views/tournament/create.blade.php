@@ -9,8 +9,7 @@
         <input name="_token" type="hidden" value="{{ csrf_token() }}" />
         <div class="form-group">
             <label for="name">Naam</label>
-            <input type="name" class="form-control" id="name" name="name"
-                placeholder="Vul hier een naam in">
+            <input type="name" class="form-control" id="name" name="name" placeholder="Vul hier een naam in">
         </div>
 
         <div class="form-group">

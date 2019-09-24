@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class TournamentController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
     /**
@@ -23,10 +23,9 @@ class TournamentController extends Controller
      */
     public function index()
     {
+        $tournaments = Tournament::all();
 
-
-
-        return view('tournament.index');
+        return view('tournament.index', compact('tournaments'));
     }
 
     /**
@@ -58,7 +57,7 @@ class TournamentController extends Controller
         $tournament->description = $request->get('description');
         $tournament->start_date_time = $request->get('start-date-time');
         $tournament->save();
-        
+
         return redirect()->route('tournament.index');
     }
 
@@ -70,7 +69,7 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        return view('tournament.show')->compact('tournament');
+        return view('tournament.show', compact('tournament'));
     }
 
     /**
@@ -79,9 +78,9 @@ class TournamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tournament $tournament)
     {
-        return view('tournament.edit');
+        return view('tournament.edit', compact('tournament'));
     }
 
     /**
@@ -91,9 +90,20 @@ class TournamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Tournament $tournament)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'description' => 'required|string|max:255',
+            'start-date-time' => 'required|date'
+        ]);
+
+        $tournament->name = $request->get('name');
+        $tournament->description = $request->get('description');
+        $tournament->start_date_time = $request->get('start-date-time');
+        $tournament->save();
+
+        return redirect()->route('tournament.index');
     }
 
     /**
@@ -104,6 +114,14 @@ class TournamentController extends Controller
      */
     public function destroy($id)
     { 
-        //
+        $tournament = Tournament::find($id);
+
+        if (!$tournament) {
+            return redirect()->back()->withErrors(['TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.']);
+        }
+
+        $tournament->delete();
+
+        return redirect()->route('tournament.index');
     }
 }
