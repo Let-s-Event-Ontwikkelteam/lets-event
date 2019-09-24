@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 use Auth;
 
@@ -20,6 +22,22 @@ class UserController extends Controller
     /* updateUserInfo */
     public function updateUserInfo(Request $request)
     {
+        /* Validate data */
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|max:50',
+        //     'email' => 'required',
+        //     'phone_number' => 'required',
+        // ]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ],
+        [
+            'name.required' => 'Je bent vergeten om je naam in te voeren!',
+            'email.required' => 'Je bent vergeten om je email in te voeren!',
+            'phone_number.required' => 'Je bent vergeten om je telefoonnummer in te voeren!',
+        ]);
         /* Search for the ID from the User */
         $user = Auth::user();
         /* Set the data from the form in a request */
@@ -32,5 +50,3 @@ class UserController extends Controller
         return redirect()->back()->with('status', 'Je hebt met succes je account instellingen gewijzigd!');
     }
 }
-
-// validatie

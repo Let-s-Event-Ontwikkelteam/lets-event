@@ -6,14 +6,22 @@
         <div class="col-md-10">
             @if (session('status'))
                 <div class="alert alert-success">
-                <a href="{{ route('user.settings')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
+                <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ $error }}
+                    @endforeach
                 </div>
             @endif
             <div class="card">
                 <div class="card-header"><h3>Account instellingen</h3></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user.post_settings') }}">
+                    <form method="POST" action="{{ route('user.update') }}">
                         {{ csrf_field() }}
                             <div class="form-group">
                                 <label><strong>Naam</strong></label>

@@ -53,7 +53,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('user.settings', ['id' => auth()->user()->id]) }}">
+                                    <a class="dropdown-item" href="{{ route('user.index', ['id' => auth()->user()->id]) }}">
                                         {{ __('Account instellingen') }}
                                     </a>
 
