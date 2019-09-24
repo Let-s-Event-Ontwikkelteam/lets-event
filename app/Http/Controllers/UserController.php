@@ -22,7 +22,7 @@ class UserController extends Controller
     /* updateUserInfo */
     public function update(Request $request)
     {
-        /* Validate data */
+        /* Validate data */ 
         $request->validate([
             'name' => 'required',
             'email' => 'required',

@@ -25,3 +25,4 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/user/settings', 'UserController@show')->name('user.index');
 	Route::post('/user/settings/update', 'UserController@update')->name('user.update');
 });
+ 

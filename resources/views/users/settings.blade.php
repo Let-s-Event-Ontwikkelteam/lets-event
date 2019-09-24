@@ -9,7 +9,7 @@
                 <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
                 </div>
             @endif
-
+ 
             @if ($errors->any())
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)

@@ -56,7 +56,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('user.index', ['id' => auth()->user()->id]) }}">
                                         {{ __('Account instellingen') }}
-                                    </a>
+                                    </a> 
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
