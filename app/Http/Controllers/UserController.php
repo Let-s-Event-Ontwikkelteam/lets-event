@@ -11,7 +11,7 @@ use Auth;
 class UserController extends Controller
 {
     /* showAllUserInfo */
-    public function showAllUserInfo()
+    public function show()
     {
         /* Search for the ID from the User */
         $user = Auth::user();
@@ -20,7 +20,7 @@ class UserController extends Controller
     }
 
     /* updateUserInfo */
-    public function updateUserInfo(Request $request)
+    public function update(Request $request)
     {
         /* Validate data */
         // $validator = Validator::make($request->all(), [
