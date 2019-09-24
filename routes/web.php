@@ -20,3 +20,6 @@ Auth::routes();
 
 
 
+Route::resources([
+    'tournament' => 'TournamentController',
+]);
