@@ -10,9 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.idea/lets-event.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/php.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.DS_Store
