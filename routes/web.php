@@ -26,3 +26,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/user/settings/update', 'UserController@update')->name('user.update');
 });
  
+Route::resources([
+    'tournament' => 'TournamentController',
+]);
