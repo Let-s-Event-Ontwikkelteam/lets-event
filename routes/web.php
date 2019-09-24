@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('admin', 'AdminController');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', 'AdminPanelController@index')->name('admin.index');
+Route::get('/admin/show/{id}', 'AdminPanelController@show')->name('admin.show');
+Route::get('/admin/edit/{id}', 'AdminPanelController@edit')->name('admin.edit');
+Route::get('/admin/destroy/{id}', 'AdminPanelController@destroy')->name('admin.destroy');
