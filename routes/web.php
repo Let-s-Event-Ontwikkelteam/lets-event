@@ -19,6 +19,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
 /* Account settings */
 Route::middleware(['auth'])->group(function () {
-	Route::get('/user/settings', 'UserController@showAllUserInfo')->name('user.index');
-	Route::post('/user/settings/update', 'UserController@updateUserInfo')->name('user.update');
+	Route::get('/user/settings', 'UserController@show')->name('user.index');
+	Route::post('/user/settings/update', 'UserController@update')->name('user.update');
 });
