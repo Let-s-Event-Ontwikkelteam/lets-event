@@ -18,7 +18,7 @@
                         <h1 class="display-4">Let's Event</h1>
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('dashboard') }}" class="btn btn-primary mx-3">Dashboard</a>
+                                <a href="{{ url('dashboard') }}" class="btn btn-dark mx-3">Dashboard</a>
                             @else
                                 <a href="{{ route('login') }}" class="btn btn-primary mx-3">Aanmelden</a>
                                 @if (Route::has('register'))
