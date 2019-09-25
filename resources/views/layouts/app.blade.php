@@ -35,7 +35,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link font-weight-bolder" href="{{ url('tournament') }}">{{ __('Toernooien') }}</a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -57,6 +61,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('dashboard')}}">
+                                        {{ __('Dashboard') }}
+                                    </a> 
                                     <a class="dropdown-item" href="{{ route('user.index', ['id' => auth()->user()->id]) }}">
                                         {{ __('Account instellingen') }}
                                     </a> 
