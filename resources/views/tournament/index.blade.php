@@ -3,7 +3,7 @@
 @section ('content')
 
 <div class="container">
-    <h1 class="text-center"> Tournament Homepagina </h1>
+    <h1 class="text-center"> Toernooi Homepagina </h1>
 
     @if ($errors->any())
       <div class="errors text-danger text-center text-uppercase">
@@ -18,7 +18,7 @@
                 <th scope="col">Naam</th>
                 <th scope="col">Beschrijving</th>
                 <th scope="col">Startdatum</th>
-                <th colspan="2"></th>
+                <th colspan="3"></th>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +38,13 @@
                     </form>
                 </td>
                 <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
+                <td><a href="" class="btn btn-success">Meedoen</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    <a type="button" href="/tournament/create" class="btn btn-primary">Make Tournament</a>
+    <a href="/tournament/create" class="btn btn-primary">Nieuw toernooi</a>
 
 </div>
 @endsection
