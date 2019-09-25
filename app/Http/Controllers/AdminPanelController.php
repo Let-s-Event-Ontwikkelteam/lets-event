@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
 
 class AdminPanelController extends Controller
 {
@@ -24,36 +26,31 @@ class AdminPanelController extends Controller
         $user = User::find($id);
         return View('admin.edit', ['user' => $user]);
     }
-    public function edit($id)
-    {
-        $rules = array(
-            'name'       => 'required',
-            'email'      => 'required|email',
-            'phone_number' => 'required|numeric'
-        );
-        $validator = Validator::make(Input::all(), $rules);
 
-        // process the login
-        if ($validator->fails()) {
-            return Redirect::to('admin/' . $id . '/show')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else {
-            // store
-            $user->name = input::get('name');
-            $user->email = input::get('email');
-            $user->phone_number = input::get('phone_number');
+    public function edit($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required'
+        ]);
+             
+            $user = User::find($id);
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->phone_number = $request->get('phone_number');
             $user->save();
-        }
+
+            return redirect('/admin')->with('success', 'Contact updated!');
     }
 
     public function destroy($id)
     {
         // delete from tourney
         $user = User::find($id);
-        $user->delete();
-        $user->save();
+        $user->delete($id);
         // redirect
-        return Redirect::to('admin');
+        $users = User::all();
+        return View('admin.index', compact('users'));
     }
 }

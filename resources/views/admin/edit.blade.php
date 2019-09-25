@@ -15,20 +15,31 @@
                             <hr>
                         </div>
                     </div>
-                    <form action="{{ route('admin.edit', ['id'=>$user->id]) }}">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <br /> 
+                    @endif
+                    <form method="post" action="{{ route('admin.edit', ['id'=>$user->id]) }}">
+                        {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <b><label for="user_last_name">Naam:</label></b>
-                                <input type="text" class="form-control" value="{{ $user->name }}">
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}">
                             </div>
                             <div class="form-group">
                                 <b><label for="user_last_name">E-mail:</label></b>
-                                <input type="text" class="form-control" value="{{ $user->email }}">
+                                <input type="text" class="form-control" name="email" value="{{ $user->email }}">
                             </div>
                             <div class="form-group">
                                 <b><label for="user_last_name">Telefoonnummer:</label></b>
-                                <input type="tel" class="form-control" value="{{ $user->phone_number }}">
+                                <input type="tel" class="form-control" name="phone_number" value="{{ $user->phone_number }}">
                             </div>
                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                 data-target="#delete-user-modal">
