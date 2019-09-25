@@ -29,7 +29,7 @@
                 <td>{{ $tournament->description }}</td>
                 <td>{{ $tournament->start_date_time }}</td>
                 <td>
-                    <form method="POST" action="{{ route('tournament.destroy', $tournament->id) }}">
+                    <form method="POST" action="{{ action('TournamentController@destroy', $tournament->id) }}">
                         <input type="hidden" name="_method" value="delete"  />
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" value="delete" class="blueTransparentButton">
@@ -38,7 +38,13 @@
                     </form>
                 </td>
                 <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
-                <td><a href="" class="btn btn-success">Meedoen</a></td>
+                <td>
+                    <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        {{-- TODO: Check inbouwen om te zien of de gebruiker al deelneemt aan het toernooi. --}}
+                        <button type="submit" class="btn btn-success">Meedoen</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
