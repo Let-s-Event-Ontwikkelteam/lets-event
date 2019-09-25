@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Auth::routes();
 
 
@@ -24,6 +23,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 	Route::get('/user/settings', 'UserController@show')->name('user.index');
 	Route::post('/user/settings/update', 'UserController@update')->name('user.update');
+	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 });
  
 Route::resources([
