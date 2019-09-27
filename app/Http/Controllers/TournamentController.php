@@ -54,10 +54,19 @@ class TournamentController extends Controller
             'start-date-time' => 'required|date'
         ]);
 
-        Tournament::create([
+        $createdTournament = Tournament::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'start-date-time' => $request->input('start-date-time')
+            'start_date_time' => $request->input('start-date-time')
+        ]);
+
+        // Maak de gebruiker een beheerder.
+        $organizerRoleId = Role::all()->firstWhere('name' , '=', 'organizer')->id;
+
+        TournamentUserRole::create([
+            'tournament_id' => $createdTournament->id,
+            'user_id' => Auth::id(),
+            'role_id' => $organizerRoleId
         ]);
 
         return redirect()->route('tournament.index');
@@ -78,11 +87,26 @@ class TournamentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Tournament $tournament
      * @return \Illuminate\Http\Response
      */
     public function edit(Tournament $tournament)
     {
+        $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
+
+        // TODO: Bouw een check in om te zien of $organizerRoleId bestaat.
+        // Check if logged in user is an organiser for the tournament
+        $tournamentOrganizer = TournamentUserRole::find([
+            'tournament_id' => $tournament->id,
+            'user_id' => Auth::id(),
+            'role_id', $organizerRoleId
+        ]);
+
+        if (!$tournamentOrganizer->count()) {
+            return redirect()->route('tournament.index')
+                ->withErrors(array('TournamentDeleteAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag dit toernooi niet wijzigen'));
+        }
+
         return view('tournament.edit', compact('tournament'));
     }
 
@@ -120,11 +144,30 @@ class TournamentController extends Controller
         $tournament = Tournament::find($id);
 
         if (!$tournament) {
-            return redirect()->back()->withErrors(['TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.']);
+            return redirect()->back()->withErrors([
+                'TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.'
+            ]);
+        }
+
+        $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
+        // TODO: Bouw een check in om te zien of $organizerRoleId niet null is.
+
+        // Check if logged in user is an organiser for the tournament
+        $tournamentOrganizer = TournamentUserRole::where([
+            'tournament_id' => $tournament->id,
+            'user_id' => Auth::id(),
+            'role_id' => $organizerRoleId
+            ])->get();
+
+        if (!$tournamentOrganizer->count()) {
+            return redirect()->route('tournament.index')
+                ->withErrors(array('TournamentDeleteAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag dit toernooi dus ook niet verwijderen.'));
         }
 
         $tournament->delete();
-
+        TournamentUserRole::destroy(
+            TournamentUserRole::where('tournament_id', $tournament->id)->get()->toArray()
+        );
         return redirect()->route('tournament.index');
     }
 }

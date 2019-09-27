@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+use App\Tournament;
+use App\TournamentUserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,10 +15,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+//     public function __construct()
+//     {
+//         $this->middleware('auth');
+//     }
 
     /**
      * Show the application dashboard.
@@ -28,6 +32,21 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('home');
+        $userTournaments = null;
+
+        if (Auth::check()) {
+            $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+
+            // TODO: Check inbouwen om te kijken of id wel bestaat.
+            // Ga na aan welke toernooien de gebruiker deelneemt.
+            $tournamentIds = TournamentUserRole::where([
+                'user_id' => Auth::id(),
+                'role_id' => $participantRoleId
+            ])->pluck('tournament_id')->toArray();
+
+            $userTournaments = Tournament::all()->whereIn('id', $tournamentIds);
+        }
+
+        return view('home')->with('tournaments', $userTournaments);
     }
 }
