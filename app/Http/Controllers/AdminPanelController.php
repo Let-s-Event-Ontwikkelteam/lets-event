@@ -29,11 +29,6 @@ class AdminPanelController extends Controller
 
     public function edit($id, Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone_number' => 'required'
-        ]);
              
             $user = User::find($id);
             $user->name = $request->get('name');

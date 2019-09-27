@@ -25,22 +25,8 @@
                     </div>
                     <br /> 
                     @endif
-                    <form method="post" action="{{ route('admin.edit', ['id'=>$user->id]) }}">
-                        {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="form-group">
-                                <b><label for="user_last_name">Naam:</label></b>
-                                <input type="text" class="form-control" name="name" value="{{ $user->name }}">
-                            </div>
-                            <div class="form-group">
-                                <b><label for="user_last_name">E-mail:</label></b>
-                                <input type="text" class="form-control" name="email" value="{{ $user->email }}">
-                            </div>
-                            <div class="form-group">
-                                <b><label for="user_last_name">Telefoonnummer:</label></b>
-                                <input type="tel" class="form-control" name="phone_number" value="{{ $user->phone_number }}">
-                            </div>
                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                 data-target="#delete-user-modal">
                                 Maak mede-beheerder
@@ -56,9 +42,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <hr>
-                           <button type="submit" class="btn btn-primary pull-right">Akkoord</button>
+                        <a href="{{ route('admin.index')}}" class="btn btn-primary">Terug</a>
                         </div>
-                    </form>
                     </div>
                 </div>
             </div>
