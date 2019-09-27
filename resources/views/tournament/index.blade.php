@@ -1,13 +1,14 @@
 @extends ('layouts.app')
 
 @section ('content')
-
 <div class="container">
-    <h1 class="text-center"> Toernooi Homepagina </h1>
+    <h1 class="text-center">Toernooi Homepagina</h1>
 
     @if ($errors->any())
-      <div class="errors text-danger text-center text-uppercase">
-        <p>{{ $errors->first('TournamentNotFound') }}</p>
+      <div class="errors text-danger text-center">
+          @foreach($errors->all() as $error)
+            <p>{{ $error }}</p>
+          @endforeach
       </div>
     @endif
 

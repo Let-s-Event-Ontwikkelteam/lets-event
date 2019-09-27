@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tournament extends Model
 {
-    protected $fillable = ['name', 'description','start-date-time'];
+    protected $fillable = ['name', 'description','start_date_time'];
 }
