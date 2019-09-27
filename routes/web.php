@@ -23,15 +23,19 @@ Route::get('/admin/show/{id}', 'AdminPanelController@show')->name('admin.show');
 Route::post('/admin/edit/{id}', 'AdminPanelController@edit')->name('admin.edit');
 Route::get('/admin/destroy/{id}', 'AdminPanelController@destroy')->name('admin.destroy');
 
-
-
 /* Account settings */
 Route::middleware(['auth'])->group(function () {
-	Route::get('/user/settings', 'UserController@show')->name('user.index');
-	Route::post('/user/settings/update', 'UserController@update')->name('user.update');
-	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+	Route::get('/user/settings', 'UserController@show')
+        ->name('user.index');
+	Route::post('/user/settings/update', 'UserController@update')
+        ->name('user.update');
+	Route::get('/dashboard', 'HomeController@dashboard')
+        ->name('dashboard');
 });
- 
+
+Route::get('/tournament/{id}/join', 'TournamentUserRoleController@joinParticipant')
+    ->name('tournament.join');
+
 Route::resources([
     'tournament' => 'TournamentController',
 ]);
