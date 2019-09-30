@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 lead">
-                            <h2>Verander {{$user->name}}</h2>
+                            <h2>Verander {{ $user->name }}</h2>
                             <hr>
                         </div>
                     </div>
