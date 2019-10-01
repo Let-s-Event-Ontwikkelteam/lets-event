@@ -8,7 +8,7 @@
 @endif
 
 <div class="container">
-    <h1 class="text-center">Toernooi Homepagina</h1>
+    <h1 class="text-center">Toernooien</h1>
 
     @if ($errors->any())
       <div class="errors text-danger text-center">
