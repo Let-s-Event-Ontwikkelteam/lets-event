@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-8">
             @if (session('status'))
                 <div class="alert alert-success">
                 <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
@@ -17,10 +17,7 @@
                     @endforeach
                 </div>
             @endif
-            <div class="card">
-                <div class="card-header"><h3>Account instellingen</h3></div>
-
-                <div class="card-body">
+                <h3>Account instellingen</h3>
                     <form method="POST" action="{{ route('user.update') }}">
                         {{ csrf_field() }}
                             <div class="form-group">
@@ -39,9 +36,6 @@
                             </div>
                         <button type="submit" class="btn btn-primary float-right">Edit</button>
                     </form>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
