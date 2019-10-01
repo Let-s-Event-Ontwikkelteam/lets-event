@@ -31,8 +31,8 @@
                                             <tr>
                                                 <th>{{ $tournament->name }}</th>
                                                 <td>{{ $tournament->description }}</td>
-                                                <td class="text-danger"><a href="" class="btn btn-danger">Verlaten</a>
-                                                </td>
+                                                <!-- <td class="text-danger"><a href="" class="btn btn-danger">Verlaten</a>
+                                                </td> -->
                                             </tr>
                                         @endforeach
                                         </tbody>
