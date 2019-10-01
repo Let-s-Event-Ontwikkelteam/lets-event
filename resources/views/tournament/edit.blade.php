@@ -3,7 +3,7 @@
 @section ('content')
 
 <div class="container">
-    <h1 class="text-center"> dit is de edit page </h1>
+    <h1 class="text-center">Edit <u><b>{{ $tournament->name }}</b></u></h1>
         <form method="POST" action="{{ action(TournamentController::class . '@update', $tournament) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
