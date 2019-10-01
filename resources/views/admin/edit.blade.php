@@ -27,12 +27,11 @@
                     @endif
                     <div class="row">
                         <div class="col-md-8">
-                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                            <a href="../../{{ $tournament_id }}/create/{{ $user->id }}"><button type="button" class="btn btn-warning" data-toggle="modal"
                                 data-target="#delete-user-modal">
                                 Maak mede-beheerder
-                            </button>
-
-                        <a href="{{ route('admin.destroy', ['id'=>$user->id]) }}"><button type="button" class="btn btn-danger" data-toggle="modal"
+                            </button></a>
+                        <a href="../../{{ $tournament_id }}/destroy/{{ $user->id }}"><button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#delete-user-modal">
                                 Verwijder van toernooi
                             </button></a>
@@ -42,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <hr>
-                        <a href="{{ route('admin.index')}}" class="btn btn-primary">Terug</a>
+                        <a href="{{ URL::previous() }}" class="btn btn-primary">Terug</a>
                         </div>
                     </div>
                 </div>
