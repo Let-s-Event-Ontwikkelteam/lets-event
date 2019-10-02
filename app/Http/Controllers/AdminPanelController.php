@@ -87,9 +87,11 @@ class AdminPanelController extends Controller
     public function destroy($tournament_id, $user_id)
     {
         // delete from tourney
-        $user = User::find($user_id);
-        $user->delete($user_id);
-        // redirect
+        $tourneyPlayer = TournamentUserRole::where([
+            'tournament_id' => $tournament_id,
+            'user_id' => $user_id
+        ])->delete();
+
         $users = User::all();
 
         $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
