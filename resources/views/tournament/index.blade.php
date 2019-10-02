@@ -1,6 +1,12 @@
 @extends ('layouts.app')
 
 @section ('content')
+@if(session()->has('message'))
+    <div class=" container alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
 <div class="container">
     <h1 class="text-center">Toernooien</h1>
 
@@ -19,7 +25,7 @@
                 <th scope="col">Naam</th>
                 <th scope="col">Beschrijving</th>
                 <th scope="col">Startdatum</th>
-                <th colspan="3"></th>
+                <th colspan="4"></th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +45,7 @@
                     </form>
                 </td>
                 <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
+                <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
                 <td>
                     <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
