@@ -2,20 +2,20 @@
 
 @section ('content')
 @if(session()->has('message'))
-    <div class=" container alert alert-success">
-        {{ session()->get('message') }}
-    </div>
+<div class=" container alert alert-success">
+    {{ session()->get('message') }}
+</div>
 @endif
 
 <div class="container">
     <h1 class="text-center">Toernooien</h1>
 
     @if ($errors->any())
-      <div class="errors text-danger text-center">
-          @foreach($errors->all() as $error)
-            <p>{{ $error }}</p>
-          @endforeach
-      </div>
+    <div class="errors text-danger text-center">
+        @foreach($errors->all() as $error)
+        <p>{{ $error }}</p>
+        @endforeach
+    </div>
     @endif
 
     <table class="table">
@@ -36,8 +36,10 @@
                 <td>{{ $tournament->description }}</td>
                 <td>{{ $tournament->start_date_time }}</td>
                 <td>
+                    
+                    @if ($tournamentOrganizer->tournament_id == $tournament->id) 
                     <form method="POST" action="{{ action('TournamentController@destroy', $tournament->id) }}">
-                        <input type="hidden" name="_method" value="delete"  />
+                        <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" value="delete" class="blueTransparentButton">
                             <i class="far fa-trash-alt"></i>
@@ -46,8 +48,10 @@
                 </td>
                 <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
                 <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
+                @endif
                 <td>
-                    <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
+                    <form method="GET"
+                        action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         {{-- TODO: Check inbouwen om te zien of de gebruiker al deelneemt aan het toernooi. --}}
                         <button type="submit" class="btn btn-success">Meedoen</button>

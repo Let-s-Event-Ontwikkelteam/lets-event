@@ -27,7 +27,15 @@ class TournamentController extends Controller
     public function index()
     {
         $tournaments = Tournament::all();
-        return view('tournament.index', compact('tournaments'));
+
+        $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
+        $tournamentOrganizer = TournamentUserRole::where([
+            'user_id' => Auth::id(),
+            'role_id' => $organizerRoleId 
+            ])->get();
+
+
+        return view('tournament.index', compact('tournaments', 'organizerRoleId', 'tournamentOrganizer'));
     }
 
     /**
