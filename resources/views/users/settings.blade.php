@@ -20,7 +20,7 @@
                 <h3>Account instellingen</h3>
                     <form method="POST" action="{{ route('user.update') }}">
                         {{ csrf_field() }}
-                            <div class="form-group">
+                           <div class="form-group">
                                 <label><strong>Naam</strong></label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                             </div>
@@ -36,6 +36,6 @@
                             </div>
                         <button type="submit" class="btn btn-primary float-right">Edit</button>
                     </form>
-    </div>
-</div>
+                </div>
+            </div>
 @endsection

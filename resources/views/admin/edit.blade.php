@@ -1,53 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-
 <div class="container">
+    <h2 class="text-center mb-5">Deelneemer: <u><b>{{ $user->name }}</b></u></h2>
     <div class="row">
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12 lead">
-                            <h2>Verander {{ $user->name }}</h2>
-                            <hr>
-                        </div>
-                    </div>
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <br /> 
-                    @endif
-                    <div class="row">
-                        <div class="col-md-8">
-                            <a href="../../{{ $tournament_id }}/create/{{ $user->id }}"><button type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#delete-user-modal">
-                                Maak mede-beheerder
-                            </button></a>
-                        <a href="../../{{ $tournament_id }}/destroy/{{ $user->id }}"><button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#delete-user-modal">
-                                Verwijder van toernooi
-                            </button></a>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <hr>
-                        <a href="{{ URL::previous() }}" class="btn btn-primary">Terug</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-    </div>
+        @endif
+    </div>   
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <a class="btn btn-success"  href="../../{{ $tournament_id }}/create/{{ $user->id }}">
+                Maak {{$user->name}} medebeheerder
+            </a>
+        </div>
+        <div class="col-md-5">
+            <a class="btn btn-danger"  href="../../{{ $tournament_id }}/destroy/{{ $user->id }}">
+                Verwijder {{$user->name}} van het toernooi
+            </a>
+        </div>
+        <div class="col-md-1"></div>
+    </div> 
+    <hr>
+    <a href="{{ URL::previous() }}" class="btn btn-primary">Terug naar deelnemers</a>
 </div>
 
 @endsection
