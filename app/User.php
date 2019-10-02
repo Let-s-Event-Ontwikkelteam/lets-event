@@ -35,4 +35,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isOrganizerForTournament($tournamentId, $roleId)
+    {
+        return TournamentUserRole::all()->firstWhere([
+            'tournament_id' => $tournamentId,
+            'user_id' => self::getAttribute('id'),
+            'role_id' => $roleId
+        ]);
+    }
 }

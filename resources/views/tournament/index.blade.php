@@ -25,7 +25,7 @@
                 <th scope="col">Naam</th>
                 <th scope="col">Beschrijving</th>
                 <th scope="col">Startdatum</th>
-                <th colspan="3"></th>
+                <th colspan="4"></th>
             </tr>
         </thead>
         <tbody>
