@@ -57,7 +57,7 @@ class TournamentController extends Controller
         Tournament::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'start-date-time' => $request->input('start-date-time')
+            'start_date_time' => $request->input('start-date-time')
         ]);
 
         return redirect()->route('tournament.index');
