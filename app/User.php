@@ -40,8 +40,8 @@ class User extends Authenticatable
     {
         return TournamentUserRole::where([
             'tournament_id' => $tournamentId,
-            'user_id' => $this->attribute('id'),
+            'user_id' => $this->id,
             'role_id' => $roleId
-        ]);
+        ])->get();
     }
 }

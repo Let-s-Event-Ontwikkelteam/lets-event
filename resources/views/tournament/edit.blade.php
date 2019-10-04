@@ -23,6 +23,6 @@
             <input class="form-control" type="datetime-local" id="start-date-time" name="start-date-time" value=" {{ $tournament->start_date_time }}"> 
         </div>
 
-        <button type="submit" class="button btn-primary">Edit toernooi</button>
+        <button type="submit" class="btn btn-primary">Edit toernooi</button>
 </div>
 @endsection
