@@ -20,6 +20,10 @@ class RoleTableSeeder extends Seeder
             [
                 'id' => 2,
                 'name' => 'participant'
+            ],
+            [
+                'id' => 3,
+                'name' => 'referee'
             ]
         ]);
     }
