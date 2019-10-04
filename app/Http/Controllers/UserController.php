@@ -42,6 +42,6 @@ class UserController extends Controller
         /* Save the data into the database */
         $user->save();
         /* Redirect back to the page and give a status with it */
-        return redirect()->back()->with('status', 'Je hebt met succes je account instellingen gewijzigd!');
+        return redirect()->back()->with('message', 'Je hebt met succes je account instellingen gewijzigd!');
     }
 }

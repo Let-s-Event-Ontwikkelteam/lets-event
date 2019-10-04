@@ -2,10 +2,10 @@
 
 @section('content')
 
-@if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
+@if(session()->has('message'))
+<div class="errors text-success text-center">
+    {{ session()->get('message') }}
+</div>
 @endif
 <div class="container">
 <h1 class="text-center font-weight-bolder">Dashboard</h1>
