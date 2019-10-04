@@ -46,6 +46,6 @@ class TournamentUserRoleController extends Controller
         ]);
 
         // Redirect terug naar de vorige pagina.
-        return redirect()->route('tournament.index');
+        return redirect()->route('dashboard');
     }
 }

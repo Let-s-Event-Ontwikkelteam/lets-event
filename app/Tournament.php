@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Tournament extends Model
@@ -18,5 +19,10 @@ class Tournament extends Model
         //     $user = User::find($tournamentUserRole->user_id);
         //     $
         // });
+    }
+
+    public function getStartDateTimeFormattedAttribute()
+    {
+        return Carbon::parse($this->start_date_time)->format('Y-m-d\TH:i');
     }
 }
