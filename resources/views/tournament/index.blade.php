@@ -46,19 +46,6 @@
                     <td></td> 
                 @endif --}}
                 <td>
-                    <form method="POST" action="{{ action('TournamentController@destroy', $tournament->id) }}">
-                        <input type="hidden" name="_method" value="delete"  />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" value="delete" class="blueTransparentButton">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </form>
-                </td>
-                <td>
-                <a href="{{ action('TournamentController@edit', $tournament->id) }}"><i class="far fa-edit"></i></a>
-                </td>
-                <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
-                <td>
                     <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         {{-- TODO: Check inbouwen om te zien of de gebruiker al deelneemt aan het toernooi. --}}
