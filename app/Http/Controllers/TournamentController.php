@@ -115,6 +115,7 @@ class TournamentController extends Controller
      */
     public function edit(Tournament $tournament, $id)
     {
+        $tournament = Tournament::find($id);
         $organizerRole = Role::getByName('organizer');
 
         if (!$organizerRole) {
