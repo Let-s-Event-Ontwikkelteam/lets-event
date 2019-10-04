@@ -4,14 +4,10 @@
 <div class="container">
     <h2 class="text-center mb-5">Deelneemer: <u><b>{{ $user->name }}</b></u></h2>
     <div class="row">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        @if(session()->has('message'))
+            <div class="errors text-success text-center">
+                <p>{{ session()->get('message') }}</p>
+            </div>
         @endif
     </div>   
     <div class="row">

@@ -4,19 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if (session('status'))
-                <div class="alert alert-success">
-                <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
-                </div>
-            @endif
- 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <a href="{{ route('user.index')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ $error }}
-                    @endforeach
-                </div>
-            @endif
+                @if(session()->has('message'))
+                    <div class="errors text-success text-center">
+                        <p>{{ session()->get('message') }}</p>
+                    </div>
+                @endif
                 <h3>Account instellingen</h3>
                     <form method="POST" action="{{ route('user.update') }}">
                         {{ csrf_field() }}
