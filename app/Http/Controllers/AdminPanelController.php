@@ -23,23 +23,19 @@ class AdminPanelController extends Controller
         
         $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
         $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
-
         $tournamentOrganizer = TournamentUserRole::where([
             'tournament_id' => $tournament_id,
             'user_id' => Auth::id(),
             'role_id' => $organizerRoleId
             ])->get();
-
             if (!$tournamentOrganizer->count()) {
                 return redirect()->route('tournament.index')
                     ->withErrors(array('TournamentAdminAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag niet in de beheerder instellingen.'));
             }
-
             $tournamentParticipant = TournamentUserRole::where([
                 'tournament_id' => $tournament_id,
                 'role_id' => $participantRoleId
             ])->get();
-
             $users = User::all();
     
         return View('admin.index', compact('users', 'tournamentParticipant' , 'tournament_id'));
