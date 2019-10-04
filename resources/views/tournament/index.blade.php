@@ -35,20 +35,16 @@
                 <td><a href="tournament/{{ $tournament->id }}">{{ $tournament->name }}</td> </a>
                 <td>{{ $tournament->description }}</td>
                 <td>{{ $tournament->start_date_time }}</td>
-                <td>
-                    
-                    @if ($tournamentOrganizer->tournament_id == $tournament->id) 
-                    <form method="POST" action="{{ action('TournamentController@destroy', $tournament->id) }}">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" value="delete" class="blueTransparentButton">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </form>
-                </td>
-                <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
-                <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
-                @endif
+                
+                {{-- @if($currentUser->isOrganizerForTournament($tournament->id, $organizerRole->id)->count()) --}}
+                    <td><a href="tournament/{{ $tournament->id }}/destroy"> <i class="far fa-trash-alt"></i></a></td>  
+                    <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
+                    <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
+                {{-- @else 
+                    <td></td>
+                    <td></td>
+                    <td></td> 
+                @endif --}}
                 <td>
                     <form method="GET"
                         action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
