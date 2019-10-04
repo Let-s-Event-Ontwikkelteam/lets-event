@@ -2,9 +2,9 @@
 
 @section ('content')
 @if(session()->has('message'))
-<div class=" container alert alert-success">
-    {{ session()->get('message') }}
-</div>
+    <div class="errors text-success text-center">
+        <p>{{ session()->get('message') }}</p>
+    </div>
 @endif
 
 <div class="container">

@@ -77,7 +77,7 @@ class AdminPanelController extends Controller
             $user->phone_number = $request->get('phone_number');
             $user->save();
 
-            return redirect('admin/{$tournament_id}')->with('success', 'Contact updated!');
+            return redirect('admin/{$tournament_id}')->with('message', 'Contact updated!');
     }
 
     public function destroy($tournament_id, $user_id)
