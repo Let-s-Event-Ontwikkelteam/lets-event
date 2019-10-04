@@ -2,6 +2,14 @@
 
 @section ('content')
 
+@if($errors->any())
+<div class=" container alert alert-danger">
+    @foreach ($errors->all() as $error)
+        {{ $error }}
+    @endforeach
+</div>
+@endif
+
 <div class="container">
     <h1 class="text-center">Edit <u><b>{{ $tournament->name }}</b></u></h1>
         <form method="POST" action="{{ action(TournamentController::class . '@update', $tournament) }}">
@@ -20,7 +28,7 @@
 
         <div class="form-group">
             <label for="start-date-time">Start datum en tijd</label>
-            <input class="form-control" type="datetime-local" id="start-date-time" name="start-date-time" value=" {{ $tournament->start_date_time }}"> 
+            <input class="form-control" type="datetime-local" id="start-date-time" name="start-date-time" max="2100-12-31T00:00" value="{{ $tournament->start_date_time_formatted }}"> 
         </div>
 
         <button type="submit" class="btn btn-primary">Edit toernooi</button>

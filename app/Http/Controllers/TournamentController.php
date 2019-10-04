@@ -17,7 +17,6 @@ class TournamentController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -153,7 +152,7 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'start-date-time' => 'required|date'
+            'start-date-time' => 'required|date_format:Y-m-d\TH:i'
         ]);
 
         $tournament->update([

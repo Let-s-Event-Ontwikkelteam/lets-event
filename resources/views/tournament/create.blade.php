@@ -20,10 +20,10 @@
 
         <div class="form-group">
             <label for="start-date-time">Start datum en tijd</label>
-            <input class="form-control" type="datetime-local" id="start-date-time" name="start-date-time">
+            <input class="form-control" type="datetime-local" id="start-date-time" max="2100-12-31T00:00" name="start-date-time">
         </div>
 
-        <button type="submit" class="button btn-primary">Maak toernooi</button>
+        <button type="submit" class="button btn btn-primary">Maak toernooi</button>
 </div>
 
 @endsection

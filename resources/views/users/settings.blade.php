@@ -26,7 +26,7 @@
                                 <label><strong>Telefoonnummer</strong></label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number"value="{{ $user->phone_number }}">
                             </div>
-                        <button type="submit" class="btn btn-primary float-right">Edit</button>
+                        <button type="submit" class="btn btn-primary float-right">Opslaan</button>
                     </form>
                 </div>
             </div>
