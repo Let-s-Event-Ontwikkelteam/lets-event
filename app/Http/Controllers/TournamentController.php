@@ -55,14 +55,12 @@ class TournamentController extends Controller
             'start-date-time' => 'required|date'
         ]);
 
-        Tournament::create([
+        $createdTournament = Tournament::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'start_date_time' => $request->input('start-date-time')
         ]);
 
-<<<<<<< HEAD
-=======
         $organizerRoleId = Role::getByName('organizer')->id;
 
         TournamentUserRole::create([
@@ -71,7 +69,6 @@ class TournamentController extends Controller
             'role_id' => $organizerRoleId
         ]);
 
->>>>>>> upstream/master
         return redirect()->route('tournament.index');
     }
 
@@ -95,8 +92,6 @@ class TournamentController extends Controller
      */
     public function edit(Tournament $tournament)
     {
-<<<<<<< HEAD
-=======
         $organizerRole = Role::getByName('organizer');
 
         if (!$organizerRole) {
@@ -116,7 +111,6 @@ class TournamentController extends Controller
                 ->withErrors(['TournamentDeleteAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag dit toernooi niet wijzigen']);
         }
 
->>>>>>> upstream/master
         return view('tournament.edit', compact('tournament'));
     }
 
@@ -155,17 +149,14 @@ class TournamentController extends Controller
         $tournament = Tournament::find($id);
 
         if (!$tournament) {
-<<<<<<< HEAD
             return redirect()->back()->withErrors(['TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.']);
         }
 
         $tournament->delete();
 
-=======
             return redirect()->back()->withErrors([
                 'TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.'
             ]);
-        }
 
         $organizerRole = Role::getByName('organizer');
 
@@ -194,7 +185,6 @@ class TournamentController extends Controller
             $tournamentUserRolesToBeDeleted = TournamentUserRole::all()->where('tournament_id', $tournament->id);
             TournamentUserRole::destroy($tournamentUserRolesToBeDeleted);
         };
->>>>>>> upstream/master
         return redirect()->route('tournament.index');
     }
 }
