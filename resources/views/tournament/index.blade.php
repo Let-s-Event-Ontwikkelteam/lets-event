@@ -44,7 +44,9 @@
                         </button>
                     </form>
                 </td>
-                <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
+                <td>
+                <a href="{{ action('TournamentController@edit', $tournament->id) }}"><i class="far fa-edit"></i></a>
+                </td>
                 <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
                 <td>
                     <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
