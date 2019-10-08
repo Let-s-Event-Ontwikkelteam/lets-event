@@ -30,6 +30,26 @@
                     <a href="{{ route('user.index', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Ga naar account-instellingen</a>
                 </div>
             </div>
+        <div class="col-sm-12">
+            <table class="table">
+                <thead class="thead">
+                <tr>
+                    <th scope="col">Naam</th>
+                    <th scope="col">Beschrijving</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($tournaments as $tournament)
+                    <tr>
+                        <th>{{ $tournament->name }}</th>
+                        <td>{{ $tournament->description }}</td>
+                        <td class="text-danger float-right"><a href="dashboard/{{ $tournament->id }}/leave" class="btn btn-danger">Verlaten</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
