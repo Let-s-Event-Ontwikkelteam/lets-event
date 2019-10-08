@@ -6,14 +6,14 @@
         <div class="col-md-12">
                 @if(session()->has('message'))
                     <div class="container alert alert-success">
-                        <b>{{ session()->get('message') }}</b>
+                        <b class="text-color: white;">{{ session()->get('message') }}</b>
                     </div>
                 @endif
 
                 @if($errors->any())
                     <div class=" container alert alert-danger">
                         @foreach ($errors->all() as $error)
-                            <b>{{ $error }}</b>
+                            <b class="text-color: white;">{{ $error }}</b>
                         @endforeach
                     </div>
                 @endif
