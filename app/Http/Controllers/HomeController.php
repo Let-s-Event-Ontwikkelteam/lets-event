@@ -60,6 +60,6 @@ class HomeController extends Controller
             'role_id' => $participantRoleId
         ])->delete();
 
-        return redirect()->route('tournament.index');
+        return redirect()->route('tournament.index')->with('message', 'Je hebt met succes het toernooi verlaten!');
     }
 }

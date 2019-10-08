@@ -5,7 +5,7 @@
 @if($errors->any())
 <div class=" container alert alert-danger">
     @foreach ($errors->all() as $error)
-        {{ $error }}
+        <b class="text-white">{{ $error }}</b>
     @endforeach
 </div>
 @endif
