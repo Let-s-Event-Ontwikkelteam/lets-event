@@ -4,7 +4,7 @@
 
 @if (session('status'))
     <div class="alert alert-success" role="alert">
-        {{ session('status') }}
+        <b>{{ session('status') }}</b>
     </div>
 @endif
 <div class="container">
