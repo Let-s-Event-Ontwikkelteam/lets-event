@@ -27,7 +27,7 @@
                     <tr>
                         <th>{{ $tournament->name }}</th>
                         <td>{{ $tournament->description }}</td>
-                        <td class="text-danger float-right"><a href="" class="btn btn-danger">Verlaten</a>
+                        <td class="text-danger float-right"><a href="dashboard/{{ $tournament->id }}/leave" class="btn btn-danger">Verlaten</a>
                         </td>
                     </tr>
                 @endforeach
