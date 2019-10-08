@@ -1,23 +1,17 @@
 @extends ('layouts.app')
 
 @section ('content')
-@if(session()->has('message'))
-<div class=" container alert alert-success">
-    {{ session()->get('message') }}
+
+@if($errors->any())
+<div class=" container alert alert-danger">
+    @foreach ($errors->all() as $error)
+        {{ $error }}
+    @endforeach
 </div>
 @endif
 
 <div class="container">
     <h1 class="text-center">Toernooien</h1>
-
-    @if ($errors->any())
-    <div class="errors text-danger text-center">
-        @foreach($errors->all() as $error)
-        <p>{{ $error }}</p>
-        @endforeach
-    </div>
-    @endif
-
     <table class="table">
         <thead>
             <tr>
