@@ -49,4 +49,17 @@ class HomeController extends Controller
 
         return view('home')->with('tournaments', $userTournaments);
     }
+
+    public function leave($id)
+    {
+        $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+
+        TournamentUserRole::where([
+            'tournament_id' => $id,
+            'user_id' => Auth::id(),
+            'role_id' => $participantRoleId
+        ])->delete();
+
+        return redirect()->route('tournament.index');
+    }
 }
