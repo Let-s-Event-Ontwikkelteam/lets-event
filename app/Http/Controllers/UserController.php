@@ -25,13 +25,8 @@ class UserController extends Controller
         /* Validate data */ 
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'phone_number' => 'required',
-        ],
-        [
-            'name.required' => 'Je bent vergeten om je naam in te voeren!',
-            'email.required' => 'Je bent vergeten om je email in te voeren!',
-            'phone_number.required' => 'Je bent vergeten om je telefoonnummer in te voeren!',
+            'email' => 'unique:users,email,$this->id,id',
+            'phone_number' => 'numeric',
         ]);
         /* Search for the ID from the User */
         $user = Auth::user();

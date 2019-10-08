@@ -5,10 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 @if(session()->has('message'))
-                    <div class="errors text-success text-center">
-                        <p>{{ session()->get('message') }}</p>
+                    <div class="container alert alert-success">
+                        <b>{{ session()->get('message') }}</b>
                     </div>
                 @endif
+
+                @if($errors->any())
+                    <div class=" container alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <b>{{ $error }}</b>
+                        @endforeach
+                    </div>
+                @endif
+
                 <h3>Account instellingen</h3>
                     <form method="POST" action="{{ route('user.update') }}">
                         {{ csrf_field() }}
