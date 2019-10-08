@@ -6,7 +6,7 @@
     <div class="row">
         @if(session()->has('message'))
             <div class="errors text-success text-center">
-                <p>{{ session()->get('message') }}</p>
+                <b>{{ session()->get('message') }}</b>
             </div>
         @endif
     </div>   

@@ -92,7 +92,7 @@ class TournamentController extends Controller
             'role_id' => $organizerRoleId
         ]);
 
-        return redirect()->route('tournament.index');
+        return redirect()->route('tournament.index')->with('message', 'Je hebt met succes een toernooi aangemaakt!');
     }
 
     /**
@@ -161,7 +161,7 @@ class TournamentController extends Controller
             'start_date_time' => $request->get('start-date-time')
         ]);
 
-        return redirect()->route('tournament.index');
+        return redirect()->route('tournament.index')->with('message', 'Je hebt met succes een toernooi gewijzigd!');
     }
 
     /**
@@ -206,6 +206,6 @@ class TournamentController extends Controller
             $tournamentUserRolesToBeDeleted = TournamentUserRole::all()->where('tournament_id', $tournament->id);
             TournamentUserRole::destroy($tournamentUserRolesToBeDeleted);
         };
-        return redirect()->route('tournament.index');
+        return redirect()->route('tournament.index')->with('message', 'Je hebt met succes een toernooi verwijderd!');
     }
 }
