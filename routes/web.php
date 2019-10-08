@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('user.update');
         Route::get('/dashboard', 'HomeController@dashboard')
         ->name('dashboard');
+        Route::get('/dashboard/{id}/leave', 'HomeController@leave')
+        ->name('dashboard.leave'); 
 });
 
 // Route::get('/tournament/{id}/admin');
