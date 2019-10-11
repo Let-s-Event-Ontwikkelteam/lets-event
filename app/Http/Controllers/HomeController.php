@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DateTime;
+use DateTimeZone;
+use Carbon\Carbon;
 use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
@@ -50,16 +52,26 @@ class HomeController extends Controller
         return view('home')->with('tournaments', $userTournaments);
     }
 
-    public function leave($id)
+    public function leave($id, $tourneyTime)
     {
         $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+        $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
+        $mytime = $time->toDateTimeString();
 
+            //kijk of de current time kleiner is dan de tijd waarop het toernooi start
+            //als dit zo is dan wordt de persoon verwijderd 
+            //als dit niet zo is wordt hij redirect terug naar de pagina met een message
+            if ($mytime < $tourneyTime) {
         TournamentUserRole::where([
             'tournament_id' => $id,
             'user_id' => Auth::id(),
             'role_id' => $participantRoleId
         ])->delete();
-
         return redirect()->route('tournament.index')->with('message', 'Je hebt met succes het toernooi verlaten!');
+
+        }
+        else{
+        return redirect()->route('dashboard')->with('message', 'Je kan het toernooi niet verlaten omdat het al begonnen is.');     
+        }
     }
 }
