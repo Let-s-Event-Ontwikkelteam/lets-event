@@ -4,35 +4,93 @@
 <div class="container">
     <h1 class="text-center font-weight-bolder mb-4">Dashboard</h1>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="card">
-                <h4 class="card-header"><b>Toernooien</b></h4>
+                <h4 class="card-header"><b>Mijn Toernooien</b></h4>
                 <div class="card-body">
                     <table class="table table-borderless table-striped">
                         <tbody>
-                        @foreach($tournaments as $tournament)
+                            @foreach($tournaments as $tournament)
                             <tr>
                                 <th>{{ $tournament->name }}</th>
                                 <td class="text-danger float-right">
-                                <a href="dashboard/{{ $tournament->id }}/leave" class="btn-link text-danger">Verlaat toernooi</a>
+                                    <a href="dashboard/{{ $tournament->id }}/leave" class="btn-link text-danger">Verlaat
+                                        toernooi</a>
                                 </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                     <a href="{{ url('tournament')}}" class="btn btn-primary">Ga naar toernooien</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="card">
-                <h5 class="card-header"><b>Account-instellingen</b></h5>
+                <h5 class="card-header"><b>Afgelopen Resultaten</b></h5>
+
                 <div class="card-body">
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iusto enim est sa</p>
-                    <a href="{{ route('user.index', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Ga naar account-instellingen</a>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iusto enim est sa
+                    </p>
+                    <a href="{{ route('user.index', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Ga naar
+                        account-instellingen</a>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <h5 class="card-header"><b>Live Time</b> </h5>
+                <div class="card-body">
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iusto enim est sa
+                    </p>
+                    <a href="#" class="btn btn-primary">Ga naar live Time</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <h5 class="card-header"><b>Statistieken voor Nerds</b> </h5>
+                <div class="card-body">
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iusto enim est sa
+                    </p>
+                    <a href="#" class="btn btn-primary">Ga naar Statistieken voor Nerds</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  mt-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <h5 class="card-header"><b>Account Instellingen</b> </h5>
+                <div class="card-body">
+                    <ul>
+                        <li>Naam: {{ $user->name }}</li>
+                        <li>Email: {{ $user->email }}</li>
+                        <li>Telefoon: {{ $user->phone_number }}</li>
+                    </ul>
+                    <a href="{{ route('user.index', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Ga naar
+                        Account Instellingen</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="card">
+                <h5 class="card-header"><b>Lopende Uitnodigingen</b> </h5>
+                <div class="card-body">
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iusto enim est sa
+                    </p>
+                    <a href="#" class="btn btn-primary">Ga naar Uitnodigingen</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 @endsection

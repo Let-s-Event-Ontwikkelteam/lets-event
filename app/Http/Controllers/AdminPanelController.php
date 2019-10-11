@@ -28,6 +28,7 @@ class AdminPanelController extends Controller
             'user_id' => Auth::id(),
             'role_id' => $organizerRoleId
             ])->get();
+            
             if (!$tournamentOrganizer->count()) {
                 return redirect()->route('tournament.index')
                     ->withErrors(array('TournamentAdminAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag niet in de beheerder instellingen.'));
