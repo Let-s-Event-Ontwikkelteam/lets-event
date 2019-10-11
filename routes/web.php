@@ -9,7 +9,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/admin/{tournament_id}', 'AdminPanelController@index')->name('admin.index');
 Route::get('/admin/{tournament_id}/show/{user_id}', 'AdminPanelController@show')->name('admin.show');
 Route::get('/admin/{tournament_id}/create/{user_id}', 'AdminPanelController@create')->name('admin.show');
-Route::post('/admin/{tournament_id}/edit/{user_id}', 'AdminPanelController@edit')->name('admin.edit');
 Route::get('/admin/{tournament_id}/destroy/{user_id}', 'AdminPanelController@destroy')->name('admin.destroy');
 
 
