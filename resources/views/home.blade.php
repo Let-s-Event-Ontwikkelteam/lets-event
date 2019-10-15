@@ -4,7 +4,8 @@
 <div class="container">
     <h1 class="text-center font-weight-bolder mb-4">Dashboard</h1>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-1"></div>  
+        <div class="col-sm-5">
             <div class="card">
                 <h4 class="card-header"><b>Toernooien</b></h4>
                 <div class="card-body">
@@ -24,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="card">
                 <h5 class="card-header"><b>Account-instellingen</b></h5>
                 <div class="card-body">
@@ -33,6 +34,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-1"></div>  
     </div>
 </div>
 @endsection

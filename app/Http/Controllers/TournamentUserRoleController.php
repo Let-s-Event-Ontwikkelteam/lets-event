@@ -6,10 +6,11 @@ use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
 use Illuminate\Support\Facades\Auth;
-use Psy\Util\Json;
+
 
 class TournamentUserRoleController extends Controller
 {
+    // Check of de user is ingelogt
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,29 +24,43 @@ class TournamentUserRoleController extends Controller
      */
     public function joinParticipant($tournamentId)
     {
-        // Vraag het id van de rol op van een participant (deelnemer).
+        /**
+         * Het ID opvragen van de role participant (Deelnemer).
+         * Zodat er later gecheckt kan worden of er
+         */
         $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
 
         $existingRecord = TournamentUserRole::where([
             'tournament_id' => $tournamentId,
-            'user_id' => Auth::id(),
+            'user_id' => Auth ::id(),
             'role_id' => $participantRoleId
         ]);
 
+        /**
+         * Als de deelnemer al meedoet moet er een error worden weergegeven op de toernooien pagina dat hij al mee * doet.
+         */
+        
+        /** Als count 0 is dan slaat hij de IF over en maakt hij een nieuwe row in de tabel tournament_user_role  
+         * aan.
+         */ 
         if ($existingRecord->count()) {
             return redirect()
                 ->route('tournament.index')
                 ->withErrors(array('joinParticipantError' => 'Je neemt al deel aan dit toernooi!'));
         }
 
-        // Maak een nieuwe record aan in de TournamentUserRole table.
+        /**
+         * Als de deelnemer nog niet mee doet moet er een nieuwe row toegevoegd worden in de database.
+         * Row: welk toernooi, welke user en de deelnemer role 
+         */
+
         TournamentUserRole::create([
             'tournament_id' => $tournamentId,
             'user_id' => Auth::id(),
             'role_id' => $participantRoleId
         ]);
 
-        // Redirect terug naar de vorige pagina.
+        // Als je deelneemt verwijst hij je terug naar het dashboard waar je toernooien staan waaraan je deelneemt.
         return redirect()->route('dashboard');
     }
 }

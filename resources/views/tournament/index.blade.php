@@ -3,15 +3,15 @@
 @section ('content')
 
 @if(session()->has('message'))
-    <div class="container alert alert-success">
-        <b class="text-white">{{ session()->get('message') }}</b>
-    </div>
+<div class="container alert alert-success">
+    <b class="text-white">{{ session()->get('message') }}</b>
+</div>
 @endif
 
 @if($errors->any())
 <div class=" container alert alert-danger">
     @foreach ($errors->all() as $error)
-        <b class="text-white">{{ $error }}</b>
+    <b class="text-white">{{ $error }}</b>
     @endforeach
 </div>
 @endif
@@ -35,20 +35,12 @@
                 <td><a href="tournament/{{ $tournament->id }}">{{ $tournament->name }}</td> </a>
                 <td>{{ $tournament->description }}</td>
                 <td>{{ $tournament->start_date_time }}</td>
-                
-                {{-- @if($currentUser->isOrganizerForTournament($tournament->id, $organizerRole->id)->count()) --}}
-                    <td><a href="tournament/{{ $tournament->id }}/destroy"> <i class="far fa-trash-alt"></i></a></td>  
-                    <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
-                    <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
-                {{-- @else 
-                    <td></td>
-                    <td></td>
-                    <td></td> 
-                @endif --}}
+
+                <td><a href="tournament/{{ $tournament->id }}/destroy"> <i class="far fa-trash-alt"></i></a></td>
+                <td><a href="tournament/{{ $tournament->id }}/edit"><i class="far fa-edit"></i></a></td>
+                <td><a href="admin/{{ $tournament->id }}"><i class="fas fa-cogs"></i></a></td>
                 <td>
                     <form method="GET" action="{{ action('TournamentUserRoleController@joinParticipant', $tournament->id) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        {{-- TODO: Check inbouwen om te zien of de gebruiker al deelneemt aan het toernooi. --}}
                         <button type="submit" class="btn btn-success">Meedoen</button>
                     </form>
                 </td>
