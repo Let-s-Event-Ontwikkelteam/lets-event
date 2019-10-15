@@ -26,7 +26,6 @@ class TournamentController extends Controller
      */
     public function index()
     {
-
         $currentLoggedInUser = User::find(Auth::id());
         $organizerRole = Role::getByName('organizer');
 
@@ -45,7 +44,7 @@ class TournamentController extends Controller
 
         // $tournamentOrganizer = TournamentUserRole::where([
         //     'user_id' => Auth::id(),
-        //     'role_id' => $organizerRoleId 
+        //     'role_id' => $organizerRoleId
         //     ])->get();
 
 
@@ -113,9 +112,8 @@ class TournamentController extends Controller
      * @param Tournament $tournament
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tournament $tournament, $id)
+    public function edit(Tournament $tournament)
     {
-        $tournament = Tournament::find($id);
         $organizerRole = Role::getByName('organizer');
 
         if (!$organizerRole) {
@@ -127,7 +125,7 @@ class TournamentController extends Controller
         $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
 
         $tournamentOrganizer = TournamentUserRole::where([
-            'tournament_id' => $id,
+            'tournament_id' => $tournament->id,
             'user_id' => Auth::id(),
             'role_id' => $organizerRoleId
             ])->get();
@@ -167,13 +165,11 @@ class TournamentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Tournament $tournament
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tournament $tournament, $id)
+    public function destroy(Tournament $tournament)
     {
-        $tournament = Tournament::find($id);
-
         if (!$tournament) {
             return redirect()->back()->withErrors([
                 'TournamentNotFound' => 'Het opgevraagde toernooi is al verlopen of niet meer beschikbaar.'
@@ -191,7 +187,7 @@ class TournamentController extends Controller
         $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
 
         $tournamentOrganizer = TournamentUserRole::where([
-            'tournament_id' => $id,
+            'tournament_id' => $tournament->id,
             'user_id' => Auth::id(),
             'role_id' => $organizerRoleId
             ])->get();
@@ -207,5 +203,38 @@ class TournamentController extends Controller
             TournamentUserRole::destroy($tournamentUserRolesToBeDeleted);
         };
         return redirect()->route('tournament.index')->with('message', 'Je hebt met succes een toernooi verwijderd!');
+    }
+
+    /**
+     * Deze methode zorgt ervoor dat er een record aangemaakt kan worden in de TournamentUserRole tabel.
+     * @param $tournamentId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function join($tournamentId)
+    {
+        // Vraag het id van de rol op van een participant (deelnemer).
+        $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+
+        $existingRecord = TournamentUserRole::where([
+            'tournament_id' => $tournamentId,
+            'user_id' => Auth::id(),
+            'role_id' => $participantRoleId
+        ]);
+
+        if ($existingRecord->count()) {
+            return redirect()
+                ->route('tournament.index')
+                ->withErrors(array('joinParticipantError' => 'Je neemt al deel aan dit toernooi!'));
+        }
+
+        // Maak een nieuwe record aan in de TournamentUserRole table.
+        TournamentUserRole::create([
+            'tournament_id' => $tournamentId,
+            'user_id' => Auth::id(),
+            'role_id' => $participantRoleId
+        ]);
+
+        // Redirect terug naar de vorige pagina.
+        return redirect()->route('dashboard');
     }
 }

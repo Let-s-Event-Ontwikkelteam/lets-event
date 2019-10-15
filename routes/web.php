@@ -1,18 +1,15 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('dashboard');
 Auth::routes();
+
+// Todo: Twee dezelfde routes die door dezelfde controller method worden aangeroepen?
+Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/admin/{tournament_id}', 'AdminPanelController@index')->name('admin.index');
-Route::get('/admin/{tournament_id}/show/{user_id}', 'AdminPanelController@show')->name('admin.show');
-Route::get('/admin/{tournament_id}/create/{user_id}', 'AdminPanelController@create')->name('admin.show');
-Route::get('/admin/{tournament_id}/destroy/{user_id}', 'AdminPanelController@destroy')->name('admin.destroy');
-
-
-/* Account settings */
+/* Account en dashboard routes. */
 Route::middleware(['auth'])->group(function () {
         Route::get('/user/settings', 'UserController@show')
         ->name('user.index');
@@ -21,17 +18,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', 'HomeController@dashboard')
         ->name('dashboard');
         Route::get('/dashboard/{id}/{tourneyTime}/leave', 'HomeController@leave')
-        ->name('dashboard.leave'); 
+            ->name('dashboard.leave');
 });
 
-// Route::get('/tournament/{id}/admin');
-
-Route::get('/tournament/{id}/join', 'TournamentUserRoleController@joinParticipant')
+// Tournament controller routes.
+Route::resource('tournament', 'TournamentController');
+Route::get('/tournament/{tournament}/join', 'TournamentController@join')
     ->name('tournament.join');
-Route::get('/tournament/{id}/edit', 'TournamentController@edit')
-    ->name('tournament.edit');
-Route::get('/tournament/{id}/destroy', 'TournamentController@destroy')
-    ->name('tournament.destroy');
-Route::resources([
-    'tournament' => 'TournamentController',
-]);
+
+// Tournament admin controller routes.
+Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
+    ->name('tournament.admin.show');
+Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
+    ->name('tournament.admin.deleteUser');
+Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
+    ->name('tournament.admin.storeUser');
+
