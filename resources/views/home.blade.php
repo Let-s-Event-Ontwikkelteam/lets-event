@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if(session()->has('message'))
+    <div class="container alert alert-danger">
+        <b class="text-white">{{ session()->get('message') }}</b>
+    </div>
+@endif
 <div class="container">
     <h1 class="text-center font-weight-bolder mb-4">Dashboard</h1>
     <div class="row">
@@ -15,7 +20,7 @@
                             <tr>
                                 <th>{{ $tournament->name }}</th>
                                 <td class="text-danger float-right">
-                                <a href="dashboard/{{ $tournament->id }}/leave" class="btn-link text-danger">Verlaat toernooi</a>
+                                <a href="dashboard/{{ $tournament->id }}/{{ $tournament->start_date_time }}/leave" class="btn-link text-danger">Verlaat toernooi</a>
                                 </td>
                             </tr>
                         @endforeach
