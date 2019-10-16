@@ -39,8 +39,8 @@ class User extends Authenticatable
     public function isOrganizerForTournament($tournamentId, $roleId)
     {
         return TournamentUserRole::where([
-            'tournament_id' => $tournamentId, 
-            'user_id' => 3, 
+            'tournament_id' => $tournamentId,
+            'user_id' => $this->id,
             'role_id' => $roleId
         ])->get();
     }
