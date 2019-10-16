@@ -27,10 +27,11 @@ Route::get('/tournament/{tournament}/join', 'TournamentController@join')
     ->name('tournament.join');
 
 // Tournament admin controller routes.
-Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
-    ->name('tournament.admin.show');
-Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
-    ->name('tournament.admin.deleteUser');
-Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
-    ->name('tournament.admin.storeUser');
-
+Route::middleware(['auth', 'isTournamentOrganizer'])->group(function() {
+    Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
+        ->name('tournament.admin.show');
+    Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
+        ->name('tournament.admin.deleteUser');
+    Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
+        ->name('tournament.admin.storeUser');
+});

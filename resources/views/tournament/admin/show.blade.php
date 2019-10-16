@@ -43,7 +43,7 @@
                         ]) }}" method="POST">
                             @method('DELETE')
                             @csrf()
-                            <button type="submit" class="text-danger" style="width: max-content;">Verwijder als beheerder</button>
+                            <button type="submit" class="btn btn-danger" style="width: max-content;">Verwijder beheerder</button>
                         </form>
                     @else
                         <form action="{{ action('TournamentAdminController@storeUser', [
@@ -52,7 +52,7 @@
                             'roleName' => 'organizer'
                         ]) }}" method="POST">
                             @csrf()
-                            <button type="submit" class="text-success" style="width: max-content;">Maak beheerder</button>
+                            <button type="submit" class="btn btn-success" style="width: max-content;">Maak beheerder</button>
                         </form>
                     @endif
                 </td>
@@ -65,7 +65,7 @@
                         ]) }}" method="POST">
                             @method('DELETE')
                             @csrf()
-                            <button type="submit" class="text-danger" style="width: max-content;">Verwijder als deelnemer</button>
+                            <button type="submit" class="btn btn-danger" style="width: max-content;">Verwijder deelnemer</button>
                         </form>
                     @else
                         <form action="{{ action('TournamentAdminController@storeUser', [
@@ -74,7 +74,7 @@
                             'roleName' => 'participant'
                         ]) }}" method="POST">
                             @csrf()
-                            <button type="submit" class="text-success" style="width: max-content;">Maak deelnemer</button>
+                            <button type="submit" class="btn btn-success" style="width: max-content;">Maak deelnemer</button>
                         </form>
                     @endif
                 </td>

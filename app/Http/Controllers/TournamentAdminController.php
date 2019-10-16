@@ -7,17 +7,10 @@ use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
 use App\User;
+use Illuminate\Http\Request;
 
 class TournamentAdminController extends TournamentController
 {
-    /**
-     * TournamentAdminController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Methode die de show view rendert voor het admin paneel,
      * hierin bevinden zich de gebruikers van het toernooi met hun bijbehorende rol(len).
