@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\Role;
-use App\Tournament;
 use App\TournamentUserRole;
 use Closure;
 
-class isTournamentOrganizer
+class hasOrganizerRole
 {
     /**
      * Handle an incoming request.
@@ -22,7 +21,8 @@ class isTournamentOrganizer
         $tournamentId = $request->route('tournamentId');
         // Check of het de parameters is gevonden.
         if (!$tournamentId) {
-            return false;
+            return redirect()->route('tournament.index')
+                ->withErrors(['Het opgegeven id van het toernooi kan niet gevonden worden']);
         }
         // Vraag de huidige gebruiker op.
         $currentUserId = $request->user()->id;
@@ -35,7 +35,9 @@ class isTournamentOrganizer
             'role_id' => $organiserRole->id
         ])->count();
 
-        return $tournamentUserRolesCount > 0 ? $next($request) : redirect()->back()
-            ->withErrors(['Je bent geen beheerder van dit toernooi.']);
+        return $tournamentUserRolesCount > 0
+            ? $next($request)
+            : redirect()->route('tournament.index')
+                ->withErrors(['Je bent geen beheerder van dit toernooi.']);
     }
 }

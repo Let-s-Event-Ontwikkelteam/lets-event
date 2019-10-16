@@ -17,14 +17,15 @@
     @endif
 
     <div class="container">
-        <h1 class="text-center">Toernooien</h1>
+        <h1 class="text-left">Overzicht van toernooien</h1>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Naam</th>
                 <th scope="col">Beschrijving</th>
                 <th scope="col">Startdatum</th>
-                <th colspan="4"></th>
+                <th scope="col">Deelnemer</th>
+                <th scope="col" colspan="3">Beheer</th>
             </tr>
             </thead>
             <tbody>
@@ -35,28 +36,47 @@
                     </td>
                     <td>{{ $tournament->description }}</td>
                     <td>{{ $tournament->start_date_time }}</td>
-                    <td>
-                        <form action="{{ action('TournamentController@destroy', $tournament->id) }}" method="POST">
-                            @method('DELETE')
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="far fa-trash-alt btn-link btn"></button>
-                        </form>
-                    </td>
-                    <td>
-                        <a href="{{ route('tournament.edit', $tournament->id) }}"><i class="far fa-edit"></i></a>
-                    </td>
-                    <td>
-                        <a href="{{ route('tournament.admin.show', $tournament->id) }}"><i class="fas fa-cogs"></i></a>
-                    </td>
-                    <td>
-                        <a href="{{ route('tournament.join', $tournament->id) }}">Meedoen</a>
-                    </td>
+                    @if($tournament->isParticipant)
+                        <td>
+                            <a href="{{ route('tournament.leave', [
+                                    'tournamentId' => $tournament->id,
+                                    'tournamentStartDateTime' => $tournament->start_date_time
+                                ]) }}"
+                               class="btn btn-link btn-custom text-danger">Verlaat toernooi</a>
+                        </td>
+                    @else
+                        <td>
+                            <a href="{{ route('tournament.join', $tournament->id) }}"
+                               class="btn btn-link btn-custom text-success">Meedoen aan toernooi</a>
+                        </td>
+                    @endif
+                    @if($tournament->isOrganizer)
+                        <td>
+                            <a href="{{ route('tournament.admin.show', $tournament->id) }}" class="text-success">Instellingen</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('tournament.edit', $tournament->id) }}" class="text-primary">Bewerken</a>
+                        </td>
+                        <td>
+                            <form action="{{ action('TournamentController@destroy', $tournament->id) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-custom text-danger">Verwijderen</button>
+                            </form>
+                        </td>
+                    @else
+                        {{--  Todo: Betere manier bedenken  --}}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
         </table>
 
-        <a href="/tournament/create" class="btn btn-primary">Nieuw toernooi</a>
+        <a href="{{ route('tournament.create') }}" class="btn btn-primary">Nieuw toernooi</a>
 
     </div>
 @endsection

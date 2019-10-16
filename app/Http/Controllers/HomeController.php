@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use DateTime;
-use DateTimeZone;
-use Carbon\Carbon;
+
 use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -51,6 +50,7 @@ class HomeController extends Controller
 
         return view('home')->with('tournaments', $userTournaments);
     }
+<<<<<<< HEAD
 
     public function leave($id, $tourneyTime)
     {
@@ -77,4 +77,6 @@ class HomeController extends Controller
         return redirect()->route('dashboard')->with('message', 'Je kan het toernooi niet verlaten omdat het al begonnen is.');     
         }
     }
+=======
+>>>>>>> upstream/master
 }
