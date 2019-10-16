@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 <div class="container">
     <h1 class="text-center font-weight-bolder mb-4">Dashboard</h1>
     <div class="container">
