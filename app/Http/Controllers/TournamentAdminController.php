@@ -7,9 +7,8 @@ use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
 use App\User;
-use Illuminate\Http\Request;
 
-class TournamentAdminController extends TournamentController
+class TournamentAdminController extends Controller
 {
     /**
      * Methode die de show view rendert voor het admin paneel,
@@ -19,9 +18,6 @@ class TournamentAdminController extends TournamentController
      */
     public function show($tournamentId)
     {
-        // TODO: Check inbouwen om te kijken of de huidige gebruiker wel een beheerder is van het toernooi.
-        // Hiervoor middleware gebruiken.
-
         $tournament = Tournament::findOrFail($tournamentId);
 
         // Alle tournamentUserRole records voor dit toernooi.
@@ -85,9 +81,9 @@ class TournamentAdminController extends TournamentController
         }
         // Vind de record in de TournamentUserRole table.
         if (!TournamentUserRole::where([
-           'tournament_id' => $tournamentId,
-           'user_id' => $userId,
-           'role_id' => $role->id
+            'tournament_id' => $tournamentId,
+            'user_id' => $userId,
+            'role_id' => $role->id
         ])->delete()) {
             // Return een error view.
             return redirect()->back()

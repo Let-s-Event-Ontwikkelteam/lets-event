@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Let's Event</title>
-        
+
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">        
-        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">        
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body id="homepage">
         <header class="homepageInformation">
@@ -22,7 +22,7 @@
                             @else
                                 <a href="{{ route('login') }}" class="btn btn-primary mx-3">Aanmelden</a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="btn btn-secondary mx-3">Registreren</a>       
+                                    <a href="{{ route('register') }}" class="btn btn-secondary mx-3">Registreren</a>
                                 @endif
                             @endauth
                         @endif

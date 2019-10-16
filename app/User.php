@@ -36,12 +36,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isOrganizerForTournament($tournamentId, $roleId)
+    public function hasRoleInTournament($tournamentId, $roleName)
     {
+        $organizerRole = Role::getByName($roleName);
         return TournamentUserRole::where([
             'tournament_id' => $tournamentId,
             'user_id' => $this->id,
-            'role_id' => $roleId
+            'role_id' => $organizerRole->id
         ])->get();
     }
 }
