@@ -6,3 +6,23 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#myChart {
+//     // background-color: grey;
+    // border:1px solid black;
+}
+
+#miniChart {    
+    margin-bottom: 20px;
+}
+
+.noListStyling {
+    font-size: 100px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.settingForm {
+    display: flex;
+}

@@ -36,3 +36,6 @@ Route::get('/tournament/{id}/destroy', 'TournamentController@destroy')
 Route::resources([
     'tournament' => 'TournamentController',
 ]);
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/stats','HomeController@stats')->name('stats');

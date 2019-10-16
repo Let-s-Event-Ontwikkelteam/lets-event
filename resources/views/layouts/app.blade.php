@@ -14,6 +14,7 @@
     <!--  Scripts  -->
     <script src="//code.jquery.com/jquery-3.4.1.js"></script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
@@ -93,5 +94,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('bodyScripts')
 </body>
 </html>

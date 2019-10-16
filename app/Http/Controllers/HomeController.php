@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
 use Illuminate\Http\Request;
@@ -27,16 +28,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-
-    
-
+        
         return view('welcome');
     }
 
     public function dashboard()
     {
-
-        // why does this not work
         $user = Auth::user();
         
         $userTournaments = null;
@@ -51,7 +48,11 @@ class HomeController extends Controller
                 'role_id' => $participantRoleId
             ])->pluck('tournament_id')->toArray();
 
-            $userTournaments = Tournament::all()->whereIn('id', $tournamentIds);
+            $userTournaments = Tournament::all()->whereIn('id', $tournamentIds)->map(function($tournament) {
+                $parsedStartDateTime = Carbon::parse($tournament->start_date_time)->format('Y-m-d H:i');
+                $tournament->start_date_time = $parsedStartDateTime;
+                return $tournament;
+            });
         }
 
         // users doesnt get passed to view
@@ -72,5 +73,9 @@ class HomeController extends Controller
         ])->delete();
 
         return redirect()->route('tournament.index')->with('message', 'Je hebt met succes het toernooi verlaten!');
+    }
+
+    public function Stats() {
+        return view('statistics.index');
     }
 }
