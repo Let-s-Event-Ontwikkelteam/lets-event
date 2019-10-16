@@ -17,7 +17,7 @@ class AdminPanelController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-    }
+    } 
     
     public function index($tournament_id)
     {
@@ -30,18 +30,18 @@ class AdminPanelController extends Controller
             'tournament_id' => $tournament_id,
             'user_id' => Auth::id(),
             'role_id' => $organizerRoleId
-            ])->get();
-            if (!$tournamentOrganizer->count()) {
-                return redirect()->route('tournament.index')
-                    ->withErrors(array('TournamentAdminAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag niet in de beheerder instellingen.'));
-            }
+        ])->get();
+        if (!$tournamentOrganizer->count()) {
+            return redirect()->route('tournament.index')
+            ->withErrors(array('TournamentAdminAuthorizationFail' => 'Je bent geen beheerder van dit toernooi, je mag niet in de beheerder instellingen.'));
+        }
 
-            //get all the participants from this tournament.
-            $tournamentParticipant = TournamentUserRole::where([
-                'tournament_id' => $tournament_id,
-                'role_id' => $participantRoleId
-            ])->get();
-            $users = User::all();
+        //get all the participants from this tournament.
+        $tournamentParticipant = TournamentUserRole::where([
+            'tournament_id' => $tournament_id,
+            'role_id' => $participantRoleId
+        ])->get();
+        $users = User::all();
     
         return View('admin.index', compact('users', 'tournamentParticipant' , 'tournament_id'));
     }
@@ -58,11 +58,11 @@ class AdminPanelController extends Controller
         $organizerRoleId = Role::all()->firstWhere('name' , '=', 'organizer')->id;
             //check if this organizer already exists for this tourney with firstOrCreate.
             //if he does not exist, create this organizer.
-            TournamentUserRole::firstOrCreate([
-                'tournament_id' => $tournament_id,
-                'user_id' => $user_id,
-                'role_id' => $organizerRoleId
-            ]);
+        TournamentUserRole::firstOrCreate([
+            'tournament_id' => $tournament_id,
+            'user_id' => $user_id,
+            'role_id' => $organizerRoleId
+        ]);
 
         $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
             //get all the participants from this tournament.
@@ -70,7 +70,7 @@ class AdminPanelController extends Controller
             'tournament_id' => $tournament_id,
             'role_id' => $participantRoleId
         ])->get();
-            $users = User::all();
+        $users = User::all();
 
         return redirect('../../../tournament/')->with('message', 'Speler is mede-beheerder gemaakt!!');;        
     }
@@ -87,20 +87,20 @@ class AdminPanelController extends Controller
         //compare the 2 times, if mytime is greater than the one from the tourney
         // delete user from tourney
         if ($mytime < $tourneyTime) {
-        $tourneyPlayer = TournamentUserRole::where([
-            'tournament_id' => $tournament_id,
-            'user_id' => $user_id
-        ])->delete();
+            $tourneyPlayer = TournamentUserRole::where([
+                'tournament_id' => $tournament_id,
+                'user_id' => $user_id
+            ])->delete();
 
 
-        $users = User::all();
-        $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
-        $tournamentParticipant = TournamentUserRole::where([
-            'tournament_id' => $tournament_id,
-            'role_id' => $participantRoleId
-        ])->get();
+            $users = User::all();
+            $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+            $tournamentParticipant = TournamentUserRole::where([
+                'tournament_id' => $tournament_id,
+                'role_id' => $participantRoleId
+            ])->get();
     
-        return redirect('../../../tournament/')->with('message', 'Speler is verwijderd van het toernooi!');  
+            return redirect('../../../tournament/')->with('message', 'Speler is verwijderd van het toernooi!');  
         }
         else{
             return redirect()->route('dashboard')->with('message', 'Je kan geen spelers meer verwijderen omdat het toernooi al is begonnen');     
