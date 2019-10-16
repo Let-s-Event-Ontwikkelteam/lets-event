@@ -1,5 +1,6 @@
 <?php
 
+use App\Tournament;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(RoleTableSeeder::class);
+//         $this->call(RoleTableSeeder::class);
+        $this->call(TournamentTableSeeder::class);
     }
 }

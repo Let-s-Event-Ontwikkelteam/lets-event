@@ -26,6 +26,9 @@ Route::get('/tournament/{tournamentId}/join', 'TournamentController@join')
 Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')
     ->name('tournament.leave');
 
+// Temporary
+Route::get('/sort-collection', 'SortController@sortCollection');
+
 // Tournament admin controller routes.
 Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
     Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tournament extends Model
 {
     protected $fillable = ['name', 'description','start_date_time'];
+    public static $sortableFields = ['id', 'name', 'description', 'start_date_time'];
 
     public function getUsersByRole($roleId)
     {
