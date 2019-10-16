@@ -7,7 +7,8 @@ use App\Role;
 use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
