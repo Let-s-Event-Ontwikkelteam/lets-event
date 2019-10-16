@@ -9,7 +9,7 @@ use App\TournamentUserRole;
 use App\User;
 use Illuminate\Http\Request;
 
-class TournamentAdminController extends TournamentController
+class TournamentAdminController extends Controller
 {
     /**
      * Methode die de show view rendert voor het admin paneel,
