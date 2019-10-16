@@ -20,7 +20,10 @@
                             <tr>
                                 <th>{{ $tournament->name }}</th>
                                 <td class="text-danger float-right">
-                                <a href="dashboard/{{ $tournament->id }}/{{ $tournament->start_date_time }}/leave" class="btn-link text-danger">Verlaat toernooi</a>
+                                    <a href="{{ route('tournament.leave', [
+                                        'tournamentId' => $tournament->id,
+                                        'tournamentStartDateTime' => $tournament->start_date_time
+                                    ]) }}" class="btn-link text-danger">Verlaat toernooi</a>
                                 </td>
                             </tr>
                         @endforeach
