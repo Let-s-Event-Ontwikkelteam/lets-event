@@ -2,62 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Tournament;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SortController extends Controller
 {
-    private $defaultSortOrder = 'asc';
-    private $defaultSortColumn = 'name';
-    private $defaultPageNumber = 1;
+    const SORTABLE_FIELDS = ['id'];
 
-    private $maxResultsPerPage = 10;
+    const DEFAULT_COLUMN_TO_SORT_BY = 'id';
+    const DEFAULT_ORDER_TO_SORT_BY = 'desc';
 
-    public function sortCollection(Request $request)
+    const DEFAULT_PAGE_NUMBER = 1;
+    const MAX_RESULTS_PER_PAGE = 10;
+
+    public function sortTournaments(Request $request)
     {
-        $requestSortOrder = $request->get('sortOrder');
-        $requestSortColumn = $request->get('sortColumn');
+        $orderToSortBy = self::DEFAULT_ORDER_TO_SORT_BY;
+        $requestOrderToSortBy = $request->get('orderToSortBy');
+
+        if ($requestOrderToSortBy && ($requestOrderToSortBy === 'asc' || $requestOrderToSortBy === 'desc')) {
+            $orderToSortBy = $requestOrderToSortBy;
+        }
+
+        $columnToSortBy = self::DEFAULT_COLUMN_TO_SORT_BY;
+        $requestColumnToSortBy = $request->get('columnToSortBy');
+        if ($requestColumnToSortBy && (array_search($requestColumnToSortBy, self::SORTABLE_FIELDS) >= 0)) {
+            $columnToSortBy = $requestColumnToSortBy;
+        }
+
+        $pageNumber = self::DEFAULT_PAGE_NUMBER;
+
+        // Check of er een pagina nummer als route parameter is meegestuurd.
         $requestPageNumber = $request->get('pageNumber');
 
-        $sortOrder = $requestSortOrder
-            // Zorg ervoor dat de sortOrder alleen de waarde 'asc' of 'desc' kan hebben.
-            ? ($requestSortOrder != 'asc' && $requestSortOrder != 'desc')
-                ? $this->defaultSortOrder
-                : $requestSortOrder
-            : $this->defaultSortOrder;
+        if ($requestPageNumber) {
+            if ((is_numeric($requestPageNumber)) && ($requestPageNumber > 0)) {
+                $pageNumber = intval($requestPageNumber);
+            }
+        }
 
-        $sortColumn = $requestSortColumn
-            // Check of er op deze column gesorteerd mag worden.
-            ? (array_search($requestSortColumn, Tournament::$sortableFields) > -1)
-                ? $requestSortColumn
-                : $this->defaultSortColumn
-            : $this->defaultSortColumn;
+        $tournaments = Tournament::orderBy($columnToSortBy, $orderToSortBy)->get();
 
-        $tournamentsSortedByColumn = Tournament::orderBy($sortColumn, $sortOrder)->get();
-        $totalAmountOfPages = ceil($tournamentsSortedByColumn->count() / $this->maxResultsPerPage);
+        $lastPageNumber = ceil($tournaments->count() / self::MAX_RESULTS_PER_PAGE);
 
-        $currentPageNumber = $requestPageNumber
-            // Check of het paginanummer van het type numeric is.
-            ? (is_numeric($requestPageNumber))
-                // Check of het paginanummer groter is dan 0.
-                ? ($requestPageNumber > 0)
-                    // Check of het paginanummer groter is dan het totale aantal pagina's.
-                    ? ($requestPageNumber > $totalAmountOfPages)
-                        ? $totalAmountOfPages
-                        : intval($requestPageNumber)
-                    : $this->defaultPageNumber
-                : $this->defaultPageNumber
-            : $this->defaultPageNumber;
+        if ($pageNumber > $lastPageNumber) {
+            $pageNumber = $lastPageNumber;
+        }
 
-        $tournamentsSortedAndPaginated = $tournamentsSortedByColumn
-            ->forPage($currentPageNumber, $this->maxResultsPerPage);
+        $paginatedTournaments = $tournaments->forPage($pageNumber, self::MAX_RESULTS_PER_PAGE);
+        $mappedTournaments = $paginatedTournaments->map(function ($tournament) use ($authUser) {
+            $userHasOrganizerRoleForTournament = $authUser->hasRoleInTournament(RoleEnum::ORGANIZER, $tournament->id);
+            $orderedTournament['isOrganizer'] = !!$userHasOrganizerRoleForTournament;
 
+            $userHasParticipantRoleForTournament = $authUser->hasRoleInTournament(RoleEnum::PARTICIPANT, $tournament->id);
+            $orderedTournament['isOrganizer'] = !!$userHasParticipantRoleForTournament;
+
+            return $tournament;
+        });
         return [
-            'tournaments' => $tournamentsSortedAndPaginated,
-            'orderToSortBy' => $sortOrder,
-            'columnToSortBy' => $sortColumn,
-            'currentPageNumber' => $currentPageNumber,
-            'totalAmountOfPages' => $totalAmountOfPages,
+            'pageNumber' => $pageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'paginatedCollection' => $paginatedTournaments,
         ];
     }
 }

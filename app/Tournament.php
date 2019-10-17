@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Tournament extends Model
 {
     protected $fillable = ['name', 'description','start_date_time'];
-    public static $sortableFields = ['id', 'name', 'description', 'start_date_time'];
 
     public function getUsersByRole($roleId)
     {
         return TournamentUserRole::where([
-            'tournament_id' => $this->id,
+            'user_id' => $this->id,
             'role_id' => $roleId
         ])->get();
     }

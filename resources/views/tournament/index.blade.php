@@ -18,12 +18,13 @@
 
     <div class="container">
         <h1 class="text-left">Overzicht van toernooien</h1>
-        <table class="table">
+        <table class="table sortable" data-request-url="{{ route('tournament.sort') }}">
             <thead>
             <tr>
-                <th scope="col">Naam</th>
-                <th scope="col">Beschrijving</th>
-                <th scope="col">Startdatum</th>
+                <th scope="col" data-sortable="true" data-column="id">Id</th>
+                <th scope="col" data-sortable="true" data-column="name">Naam</th>
+                <th scope="col" data-sortable="true" data-column="description">Beschrijving</th>
+                <th scope="col" data-sortable="true" data-column="start_date_time">Startdatum</th>
                 <th scope="col">Deelnemer</th>
                 <th scope="col" colspan="3">Beheer</th>
             </tr>
@@ -31,6 +32,9 @@
             <tbody>
             @foreach($tournaments as $tournament)
                 <tr>
+                    <td>
+                        {{ $tournament->id }}
+                    </td>
                     <td>
                         <a href="{{ route('tournament.show', $tournament->id) }}">{{ $tournament->name }}</a>
                     </td>
@@ -76,7 +80,14 @@
             </tbody>
         </table>
 
-        <a href="{{ route('tournament.create') }}" class="btn btn-primary">Nieuw toernooi</a>
+        @include('layouts.partials.pagination')
+        @yield('pagination')
+
+        <a href="{{ route('tournament.create') }}" class="btn btn-primary">Maak een toernooi</a>
 
     </div>
+@endsection
+
+@section('bodyScripts')
+    <script src="{{ asset('js/sort/sortTable.js') }}"></script>
 @endsection

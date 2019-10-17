@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Todo: Twee dezelfde routes die door dezelfde controller method worden aangeroepen?
-Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
 
 /* Account en dashboard routes. */
@@ -27,7 +27,7 @@ Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartD
     ->name('tournament.leave');
 
 // Temporary
-Route::get('/sort-collection', 'SortController@sortCollection');
+Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
 
 // Tournament admin controller routes.
 Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
