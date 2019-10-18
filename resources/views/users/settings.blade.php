@@ -22,32 +22,25 @@
 
             <form class="settingForm" method="POST" action="{{ route('user.update') }}">
                 {{ csrf_field() }}
-
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label><strong>Naam</strong></label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
-                    </div>
+                <div class="form-group">
+                    <label><strong>Naam</strong></label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label><strong>E-mail</strong></label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
-                    </div>
+                <div class="form-group">
+                    <label><strong>E-mail</strong></label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label><strong>Telefoonnummer</strong></label>
-                        <input type="text" class="form-control" id="phone_number" name="phone_number"
-                            value="{{ $user->phone_number }}">
-                    </div>
+                <div class="form-group">
+                    <label><strong>Telefoonnummer</strong></label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number"
+                        value="{{ $user->phone_number }}">
                 </div>
 
-               
+                <button type="submit" class="btn btn-primary">Opslaan</button>
             </form>
-            <button type="submit" class="btn btn-primary float-left ml-3">Opslaan</button>
+
         </div>
     </div>
 </div>

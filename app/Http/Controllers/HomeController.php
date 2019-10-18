@@ -37,10 +37,12 @@ class HomeController extends Controller
         $user = Auth::user();
         
         $userTournaments = null;
+        $tournamentsWhereUserIsNotParticipant = null;
 
         if (Auth::check()) {
             $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
-            
+            $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
+
             // TODO: Check inbouwen om te kijken of id wel bestaat.
             // Ga na aan welke toernooien de gebruiker deelneemt.
             $tournamentIds = TournamentUserRole::where([
@@ -53,11 +55,22 @@ class HomeController extends Controller
                 $tournament->start_date_time = $parsedStartDateTime;
                 return $tournament;
             });
+
+
+
+            $tournamentsWhereUserIsNotParticipant = TournamentUserRole::where('user_id', '!=', Auth::id())
+            ->get()->unique()
+            ->map(function($tournamentUserRole) {
+                return Tournament::find($tournamentUserRole->tournament_id);
+            });
+
         }
+
 
         // users doesnt get passed to view
         return view('home')->with([
             'tournaments' => $userTournaments,
+            'tournamentsWhereUserIsNotParticipant' => $tournamentsWhereUserIsNotParticipant, 
             'user' => $user
         ]);
     }

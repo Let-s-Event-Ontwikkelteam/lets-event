@@ -20,7 +20,7 @@
                                     <th>{{ $tournament->name }}</th>
                                     <th>{{ $tournament->start_date_time }}</th>
                                     <td class="text-danger float-right">
-                                        <a href="dashboard/{{ $tournament->id }}/leave"
+                                        <a href="{{ route('tournament.leave', [$tournament->id, $tournament->start_date_time])}}"
                                             class="btn-link text-danger">Verlaat
                                             toernooi</a>
                                     </td>
@@ -34,18 +34,37 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+
+            <!-- only display tourneys that the user didnt join yet -->
+
+
+            <!-- filtering -->
+
+            <!-- <div class="col-sm-6">
                 <div class="card">
-                    <h5 class="card-header"><b>Statistieken voor Nerds</b> </h5>
+                    <h5 class="card-header"><b>Lopende Uitnodigingen</b></h5>
                     <div class="card-body">
-                        <canvas id="miniChart"></canvas>
-                        <a href="{{ url('stats') }}" class="btn btn-primary">Ga naar Statistieken voor Nerds</a>
+                        <table class="table table-borderless table-striped">
+                            <tbody>
+                                @foreach($tournamentsWhereUserIsNotParticipant as $tournament)
+                                <tr>
+                                    <th>{{ $tournament->name }}</th>
+                                    <th>{{ $tournament->start_date_time }}</th>
+                                    <th class="text-danger float-right">
+                                        <a route:="dashboard/{{ $tournament->id }}/join"
+                                            class="btn-link text-success">Doe mee!</a>
+                                    </th>
+                                    <td class="text-danger float-right">
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <a href="{{ route('tournament.index')}}" class="btn btn-primary">Ga naar toernooien</a>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> -->
 
-        <div class="row mt-5">
             <div class="col-sm-6">
                 <div class="card">
                     <h5 class="card-header"><b>Account Instellingen</b> </h5>
@@ -63,31 +82,17 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="row mt-5">
             <div class="col-sm-6">
                 <div class="card">
-                    <h5 class="card-header"><b>Lopende Uitnodigingen</b> </h5>
+                    <h5 class="card-header"><b>Statistieken voor Nerds</b> </h5>
                     <div class="card-body">
-                        <table class="table table-borderless table-striped">
-                            <tbody>
-                                @foreach($tournaments as $tournament)
-                                <tr>
-                                    <th>{{ $tournament->name }}</th>
-                                    <td class="text-danger float-right">
-                                        <a href="dashboard/{{ $tournament->id }}/leave"
-                                            class="btn-link text-danger">Verlaat
-                                            toernooi</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <a href="{{ route('tournament.index')}}" class="btn btn-primary">Ga naar toernooien</a>
+                        <canvas id="miniChart"></canvas>
+                        <a href="{{ url('stats') }}" class="btn btn-primary">Ga naar Statistieken voor Nerds</a>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <!-- <div class="row mt-5">
