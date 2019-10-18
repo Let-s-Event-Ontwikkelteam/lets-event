@@ -12,7 +12,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!--  Scripts  -->
-    <script src="//code.jquery.com/jquery-3.4.1.js"></script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
 
@@ -94,6 +93,9 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="//code.jquery.com/jquery-3.4.1.js"></script>
     @yield('bodyScripts')
+
 </body>
 </html>
