@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Todo: Twee dezelfde routes die door dezelfde controller method worden aangeroepen?
+
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -37,5 +37,5 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         
 });
 
-Route::get('/', 'HomeController@index')->name('home');
+// 'Widget' from dashboard
 Route::get('/stats','HomeController@stats')->name('stats');
