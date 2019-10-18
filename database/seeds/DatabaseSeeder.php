@@ -1,6 +1,5 @@
 <?php
 
-use App\Tournament;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

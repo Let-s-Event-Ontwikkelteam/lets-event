@@ -29,15 +29,32 @@ class TournamentController extends Controller
             $pageNumber = $requestPageNumber;
         }
 
-        $orderedTournaments = Tournament::orderBy('id', 'asc')->get();
+        $orderToSortBy = 'desc';
+        $requestOrderToSortBy = $request->get('orderToSortBy');
+
+        if ($requestOrderToSortBy && ($requestOrderToSortBy === 'asc' || $requestOrderToSortBy === 'desc')) {
+            $orderToSortBy = $requestOrderToSortBy;
+        }
+
+        $columnToSortBy = 'start_date_time';
+        $requestColumnToSortBy = $request->get('columnToSortBy');
+        if ($requestColumnToSortBy && (array_search($requestColumnToSortBy,
+                    ['id', 'name', 'description', 'start_date_time']) >= 0)) {
+            $columnToSortBy = $requestColumnToSortBy;
+        }
+
+        $orderedTournaments = Tournament::orderBy($columnToSortBy, $orderToSortBy)->get();
         $pagedTournaments = $orderedTournaments->forPage($pageNumber, 10);
 
         $authUser = User::findOrFail(Auth::id());
+
         $mappedTournaments = $pagedTournaments->map(function ($tournament) use ($authUser) {
-            $userHasOrganizerRoleForTournament = $authUser->hasRoleInTournament(RoleEnum::ORGANIZER, $tournament->id);
+            $userHasOrganizerRoleForTournament = $authUser
+                ->hasRoleInTournament(RoleEnum::ORGANIZER, $tournament->id);
             $orderedTournament['isOrganizer'] = !!$userHasOrganizerRoleForTournament;
 
-            $userHasParticipantRoleForTournament = $authUser->hasRoleInTournament(RoleEnum::PARTICIPANT, $tournament->id);
+            $userHasParticipantRoleForTournament = $authUser
+                ->hasRoleInTournament(RoleEnum::PARTICIPANT, $tournament->id);
             $orderedTournament['isOrganizer'] = !!$userHasParticipantRoleForTournament;
 
             return $tournament;
@@ -49,10 +66,15 @@ class TournamentController extends Controller
             $pageNumber = $lastPageNumber;
         }
 
+        $oppositeOrderToSortBy = ($orderToSortBy == 'asc') ? 'desc' : 'asc';
+
         return view('tournament.index')
             ->with('tournaments', $mappedTournaments)
             ->with('pageNumber', $pageNumber)
-            ->with('lastPageNumber', $lastPageNumber);
+            ->with('lastPageNumber', $lastPageNumber)
+            ->with('columnToSortBy', $columnToSortBy)
+            ->with('orderToSortBy', $orderToSortBy)
+            ->with('newOrderToSortBy', $oppositeOrderToSortBy);
     }
 
     /**

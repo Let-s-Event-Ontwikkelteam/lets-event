@@ -21,10 +21,37 @@
         <table class="table sortable" data-request-url="{{ route('tournament.sort') }}">
             <thead>
             <tr>
-                <th scope="col" data-sortable="true" data-column="id">Id</th>
-                <th scope="col" data-sortable="true" data-column="name">Naam</th>
-                <th scope="col" data-sortable="true" data-column="description">Beschrijving</th>
-                <th scope="col" data-sortable="true" data-column="start_date_time">Startdatum</th>
+                <th scope="col">
+                    @if ($columnToSortBy == 'id')
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=id&orderToSortBy={{ $newOrderToSortBy }}">Id</a>
+                    @else
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=id">Id</a>
+                    @endif
+                </th>
+                <th scope="col">
+                    @if ($columnToSortBy == 'name')
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=name&orderToSortBy={{ $newOrderToSortBy }}">Naam</a>
+                    @else
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=name">Naam</a>
+                    @endif
+                </th>
+                <th scope="col">
+                    @if ($columnToSortBy == 'description')
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=description&orderToSortBy={{ $newOrderToSortBy }}">Beschrijving</a>
+                    @else
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=description">Beschrijving</a>
+                    @endif
+                </th>
+                <th scope="col">
+                    @if ($columnToSortBy == 'start_date_time')
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=start_date_time&orderToSortBy={{ $newOrderToSortBy }}">Start
+                            datum en tijd</a>
+                    @else
+                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=start_date_time">Start
+                            datum en tijd</a>
+                    @endif
+                </th>
+
                 <th scope="col">Deelnemer</th>
                 <th scope="col" colspan="3">Beheer</th>
             </tr>
@@ -86,8 +113,4 @@
         <a href="{{ route('tournament.create') }}" class="btn btn-primary">Maak een toernooi</a>
 
     </div>
-@endsection
-
-@section('bodyScripts')
-    <script src="{{ asset('js/sort/sortTable.js') }}"></script>
 @endsection
