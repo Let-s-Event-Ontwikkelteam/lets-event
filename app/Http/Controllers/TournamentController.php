@@ -51,11 +51,11 @@ class TournamentController extends Controller
         $mappedTournaments = $pagedTournaments->map(function ($tournament) use ($authUser) {
             $userHasOrganizerRoleForTournament = $authUser
                 ->hasRoleInTournament(RoleEnum::ORGANIZER, $tournament->id);
-            $orderedTournament['isOrganizer'] = !!$userHasOrganizerRoleForTournament;
+            $tournament['isOrganizer'] = !!$userHasOrganizerRoleForTournament;
 
             $userHasParticipantRoleForTournament = $authUser
                 ->hasRoleInTournament(RoleEnum::PARTICIPANT, $tournament->id);
-            $orderedTournament['isOrganizer'] = !!$userHasParticipantRoleForTournament;
+            $tournament['isParticipant'] = !!$userHasParticipantRoleForTournament;
 
             return $tournament;
         });
@@ -65,7 +65,7 @@ class TournamentController extends Controller
         if ($pageNumber > $lastPageNumber) {
             $pageNumber = $lastPageNumber;
         }
-
+        
         $oppositeOrderToSortBy = ($orderToSortBy == 'asc') ? 'desc' : 'asc';
 
         return view('tournament.index')
