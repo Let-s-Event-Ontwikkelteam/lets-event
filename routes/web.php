@@ -23,13 +23,19 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('tournament', 'TournamentController');
 Route::get('/tournament/{tournamentId}/join', 'TournamentController@join')
     ->name('tournament.join');
-Route::get('/tournament/{id}/edit', 'TournamentController@edit')
-    ->name('tournament.edit');
-Route::get('/tournament/{id}/destroy', 'TournamentController@destroy')
-    ->name('tournament.destroy');
-Route::resources([
-    'tournament' => 'TournamentController',
-]);
+Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')
+    ->name('tournament.leave');
+
+// Tournament admin controller routes.
+Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
+    Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
+        ->name('tournament.admin.show');
+    Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
+        ->name('tournament.admin.deleteUser');
+    Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
+        ->name('tournament.admin.storeUser');
+        
+});
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/stats','HomeController@stats')->name('stats');

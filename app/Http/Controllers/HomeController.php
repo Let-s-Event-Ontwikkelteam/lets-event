@@ -7,7 +7,6 @@ use App\Role;
 use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
-use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
