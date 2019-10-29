@@ -25,7 +25,7 @@ class HomeController extends Controller
         $userTournaments = null;
 
         if (Auth::check()) {
-            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT)->first()->id;
+            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT )->first()->id;
 
             // TODO: Check inbouwen om te kijken of id wel bestaat.
             // Ga na aan welke toernooien de gebruiker deelneemt.
