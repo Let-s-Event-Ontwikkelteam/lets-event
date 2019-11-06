@@ -53,7 +53,7 @@
                 </th>
 
                 <th scope="col">Deelnemer</th>
-                <th scope="col" colspan="3">Beheer</th>
+                <th scope="col" colspan="3"></th>
             </tr>
             </thead>
             <tbody>
