@@ -16,7 +16,7 @@
                         <table class="table table-borderless table-striped">
                             <tbody>
                                 @if (count($tournaments) == 0)
-                                    <b><p class="text-center">Momenteel doe je niet mee aan een toernooi.</p></b>
+                                    <p class="text-center"><b>Momenteel doe je niet mee aan een toernooi.</b></p>
                                 @else
                                 @foreach($tournaments as $tournament)
                                 
