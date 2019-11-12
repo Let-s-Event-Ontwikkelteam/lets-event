@@ -39,6 +39,8 @@ class TournamentAdminController extends Controller
                 ? true : false;
             $tournamentUser->isParticipant = array_search(RoleEnum::PARTICIPANT, $userRoles) > -1
                 ? true : false;
+            $tournamentUser->isReferee = array_search(RoleEnum::REFEREE, $userRoles) > -1
+                ? true : false;
 
             return $tournamentUser;
         });

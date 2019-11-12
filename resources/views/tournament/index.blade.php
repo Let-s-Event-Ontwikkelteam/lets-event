@@ -53,6 +53,7 @@
                 </th>
 
                 <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col" colspan="3"></th>
             </tr>
             </thead>
@@ -96,11 +97,17 @@
                                 <button type="submit" class="btn-custom text-danger">Verwijderen</button>
                             </form>
                         </td>
+
                     @else
                         {{--  Todo: Betere manier bedenken  --}}
                         <td></td>
                         <td></td>
                         <td></td>
+                    @endif
+                    @if ($tournament->isReferee)
+                        <td><a href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als scheidsrechter</a></td>
+                    @else
+                        <td><a href="{{ action('TournamentController@addReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
                     @endif
                 </tr>
             @endforeach
