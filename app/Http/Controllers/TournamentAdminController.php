@@ -8,6 +8,7 @@ use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
 use App\User;
+use App\RefereeRequest;
 
 class TournamentAdminController extends Controller
 {
@@ -42,6 +43,7 @@ class TournamentAdminController extends Controller
             $tournamentUser->isReferee = array_search(RoleEnum::REFEREE, $userRoles) > -1
                 ? true : false;
 
+            
             return $tournamentUser;
         });
 

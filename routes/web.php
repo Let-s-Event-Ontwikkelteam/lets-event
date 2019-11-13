@@ -23,8 +23,8 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('tournament', 'TournamentController');
 Route::get('/tournament/{tournamentId}/join', 'TournamentController@join')
     ->name('tournament.join');
-Route::get('/tournament/{tournamentId}/addReferee', 'TournamentController@addReferee')
-    ->name('tournament.addReferee');
+Route::get('/tournament/{tournamentId}/requestReferee', 'TournamentController@requestReferee')
+    ->name('tournament.requestReferee');
 Route::get('/tournament/{tournamentId}/deleteReferee', 'TournamentController@deleteReferee')
     ->name('tournament.deleteReferee');
 Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')

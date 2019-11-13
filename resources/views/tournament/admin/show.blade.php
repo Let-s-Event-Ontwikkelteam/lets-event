@@ -90,7 +90,6 @@
                     </td>
                 </tr>
             
-            
         </table>
         <table class="table">
             <h2 class="text-left">Aanvragen voor scheidsrechter</h1>
@@ -100,13 +99,17 @@
                 <th class="col">Telefoonummer</th>
                 <th class="col" colspan="2">Instellingen</th>
             </tr>
+            @if ($tournament->isReferee)    
+              
             <tr>
-                <td></td>
-                <td></td>
+                <td>{{$tournamentUser->name}}</td>
+                <td>test</td>
                 <td></td>
             </tr>
-            
+            @endif
             @endforeach
+            
+            
         </table>
         <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
     </div>

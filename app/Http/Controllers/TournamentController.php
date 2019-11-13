@@ -6,6 +6,7 @@ use App\Enums\RoleEnum;
 use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
+use App\RefereeRequest;
 use App\User;
 use Carbon\Carbon;
 use DateTimeZone;
@@ -305,7 +306,7 @@ class TournamentController extends Controller
         return redirect()->back()
             ->withErrors(['Je kan het toernooi niet verlaten omdat het al begonnen is.']);
     }
-    public function addReferee($tournamentId)
+    public function requestReferee($tournamentId)
     {
         //zoek het id van de referee
         $refereeRoleId = Role::all()->firstWhere('name', '=', 'referee')->id;
@@ -313,8 +314,7 @@ class TournamentController extends Controller
         //kijk of deze user al een scheids is, als dat zo is stuur dan een foutcode
         $existingRecord = TournamentUserRole::where([
             'tournament_id' => $tournamentId,
-            'user_id' => Auth::id(),
-            'role_id' => $refereeRoleId
+            'user_id' => Auth::id()
         ]);
 
         if ($existingRecord->count()) {
@@ -323,11 +323,11 @@ class TournamentController extends Controller
                 ->withErrors(array('joinRefereeError' => 'Je bent al een scheidsrechter!'));
         }
 
-        // Maak een nieuwe record aan in de TournamentUserRole table.
-        TournamentUserRole::create([
+        // Maak een request aan in de referee request table
+        RefereeRequest::create([
             'tournament_id' => $tournamentId,
             'user_id' => Auth::id(),
-            'role_id' => $refereeRoleId
+            'status' => 'pending'
         ]);
 
         // Redirect terug naar de vorige pagina.
@@ -354,6 +354,11 @@ class TournamentController extends Controller
             'tournament_id' => $tournamentId,
             'user_id' => Auth::id(),
             'role_id' => $refereeRoleId
+        ])->delete();
+
+        RefereeRequest::where([
+            'tournament_id' => $tournamentId,
+            'user_id' => Auth::id(),
         ])->delete();
         return redirect()->route('tournament.index');
 

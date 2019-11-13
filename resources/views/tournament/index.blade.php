@@ -22,13 +22,6 @@
             <thead>
             <tr>
                 <th scope="col">
-                    @if ($columnToSortBy == 'id')
-                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=id&orderToSortBy={{ $newOrderToSortBy }}">Id</a>
-                    @else
-                        <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=id">Id</a>
-                    @endif
-                </th>
-                <th scope="col">
                     @if ($columnToSortBy == 'name')
                         <a href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=name&orderToSortBy={{ $newOrderToSortBy }}">Naam</a>
                     @else
@@ -60,9 +53,6 @@
             <tbody>
             @foreach($tournaments as $tournament)
                 <tr>
-                    <td>
-                        {{ $tournament->id }}
-                    </td>
                     <td>
                         <a href="{{ route('tournament.show', $tournament->id) }}">{{ $tournament->name }}</a>
                     </td>
@@ -107,7 +97,7 @@
                     @if ($tournament->isReferee)
                         <td><a href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als scheidsrechter</a></td>
                     @else
-                        <td><a href="{{ action('TournamentController@addReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
+                        <td><a href="{{ action('TournamentController@requestReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
                     @endif
                 </tr>
             @endforeach
