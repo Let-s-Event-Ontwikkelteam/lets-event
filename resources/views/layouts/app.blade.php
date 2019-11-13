@@ -13,10 +13,10 @@
     <script src="//code.jquery.com/jquery-3.4.1.js"></script>
 
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -32,6 +32,12 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                <div id="languages">
+                    <button id="language-nl" data-language="nl">Nederlands</button>
+                    <button id="language-en" data-language="en">English</button>
+                </div>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -95,6 +101,7 @@
     </div>
 
     @yield('bodyScripts')
+    <script src="{{ asset('js/select-language.js') }}"></script>
 
 </body>
 </html>
