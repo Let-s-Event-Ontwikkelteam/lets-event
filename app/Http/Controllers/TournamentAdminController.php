@@ -22,6 +22,12 @@ class TournamentAdminController extends Controller
     {
         $tournament = Tournament::findOrFail($tournamentId);
 
+        $requests = RefereeRequest::where([
+            'tournament_id' => $tournamentId,
+            'status' => 'pending'
+        ])->get();
+
+
         // Alle tournamentUserRole records voor dit toernooi.
         $tournamentUserRoles = TournamentUserRole::where('tournament_id', $tournament->id)->get();
         // Alle gebruikers van het toernooi (inclusief beheerders, deelnemers etc).
@@ -49,7 +55,8 @@ class TournamentAdminController extends Controller
 
         return view('tournament.admin.show')->with([
             'tournament' => $tournament,
-            'tournamentUsers' => $tournamentUsers
+            'tournamentUsers' => $tournamentUsers,
+            'requests' => $requests
         ]);
     }
 
@@ -147,5 +154,41 @@ class TournamentAdminController extends Controller
 
         return redirect()->back()
             ->with('successMessage', 'De rol is aan de gebruiker toegevoegd.');
+    }
+    public function addReferee($tournamentId, $userId)
+    {
+                //zoek het id van de referee
+                $refereeRoleId = Role::all()->firstWhere('name', '=', 'referee')->id;
+
+                //kijk of deze user al een scheids is, als dat zo is stuur dan een foutcode
+                $existingRecord = TournamentUserRole::where([
+                    'tournament_id' => $tournamentId,
+                    'user_id' => $userId,
+                    'role_id' => $refereeRoleId
+                ]);
+        
+                if ($existingRecord->count()) {
+                    return redirect()
+                        ->route('tournament.index')
+                        ->withErrors(array('joinRefereeError' => 'Deze persoon is al een scheidsrechter!'));
+                }
+        
+                // Maak een scheidsrechter rol aan in tournamentUserRole
+                TournamentUserRole::create([
+                    'tournament_id' => $tournamentId,
+                    'user_id' => $userId,
+                    'role_id' => $refereeRoleId
+                ]);
+
+                //Verander de status van de refereeRequest naar accepted
+                RefereeRequest::where([
+                    'tournament_id' => $tournamentId,
+                    'user_id' => $userId
+                ])->update([
+                    'status' => 'accepted'
+                ]);
+        
+                // Redirect terug naar de vorige pagina.
+                return redirect()->route('tournament.index')->with('message', 'Scheidsrechter is succesvol aangemaakt.');
     }
 }

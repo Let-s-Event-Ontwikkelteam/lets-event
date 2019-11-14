@@ -72,6 +72,11 @@
                                class="btn btn-link btn-custom text-success">Meedoen aan toernooi</a>
                         </td>
                     @endif
+                    @if ($tournament->isReferee)
+                    <td><a class="text-danger" href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als scheidsrechter</a></td>
+                @else
+                    <td><a class="text-success" href="{{ action('TournamentController@requestReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
+                @endif
                     @if($tournament->isOrganizer)
                         <td>
                             <a href="{{ route('tournament.admin.show', $tournament->id) }}" class="text-success">Instellingen</a>
@@ -94,11 +99,7 @@
                         <td></td>
                         <td></td>
                     @endif
-                    @if ($tournament->isReferee)
-                        <td><a href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als scheidsrechter</a></td>
-                    @else
-                        <td><a href="{{ action('TournamentController@requestReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
-                    @endif
+
                 </tr>
             @endforeach
             </tbody>

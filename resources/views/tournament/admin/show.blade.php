@@ -99,15 +99,25 @@
                 <th class="col">Telefoonummer</th>
                 <th class="col" colspan="2">Instellingen</th>
             </tr>
-            @if ($tournament->isReferee)    
+                @foreach ($requests as $request)
+                    @if ($request->status == 'pending')    
               
-            <tr>
-                <td>{{$tournamentUser->name}}</td>
-                <td>test</td>
-                <td></td>
-            </tr>
-            @endif
+                <tr>
+                    <td>{{ $tournamentUser->name }}</td>
+                    <td>{{ $tournamentUser->email }}</td>
+                    <td>{{ $tournamentUser->phone_number }}</td>
+                    <td><a href="{{ action('TournamentAdminController@addReferee', [
+                        'tournamentId' => $tournament->id, 
+                        'userId' => $tournamentUser->id ]) }}">Accepteer
+                        </a></td>
+                    <td><a href="{{ action('TournamentAdminController@denyReferee', [
+                        'tournamentId' => $tournament->id,
+                        'userId' => $tournamentUser->id
+                        ])}}">Sta niet toe</a></td>
+                </tr>
+                @endif
             @endforeach
+        @endforeach
             
             
         </table>
