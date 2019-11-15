@@ -32,7 +32,7 @@ Route::get('/tournament/{tournamentId}/deleteReferee', 'TournamentController@del
     ->name('tournament.deleteReferee');
 
 // Temporary
-Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
+// Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
 
 // Tournament admin controller routes.
 Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
@@ -42,9 +42,10 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         ->name('tournament.admin.deleteUser');
     Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
         ->name('tournament.admin.storeUser');
-    Route::get('/tournament/{tournamentId}/admin/user/{userId}', 'TournamentAdminController@addReferee')
+    Route::get('/tournament/{tournamentId}/admin/add/{userId}', 'TournamentAdminController@addReferee')
         ->name('tournament.addReferee');
-    Route::get('/tournament/{tournamentId}/admin/user/{userId}', 'TournamentAdminController@denyReferee')
+
+    Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
         ->name('tournament.denyReferee');
 
         

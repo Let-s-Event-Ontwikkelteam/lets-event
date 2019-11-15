@@ -312,14 +312,13 @@ class TournamentController extends Controller
         //kijk of deze user al eens heeft gevraagd om scheids te worden, als dat zo is stuur dan een foutcode
         $existingRecord = RefereeRequest::where([
             'tournament_id' => $tournamentId,
-            'user_id' => Auth::id(),
-            'status' => 'pending'
+            'user_id' => Auth::id()
         ]);
 
         if ($existingRecord->count()) {
             return redirect()
                 ->route('tournament.index')
-                ->withErrors(array('joinRefereeError' => 'Je hebt al een verzoek verstuurd, het is nog niet beantwoord.'));
+                ->withErrors(array('joinRefereeError' => 'Je hebt al een verzoek verstuurd of je bent afgewezen.'));
         }
 
         // Maak een request aan in de referee request table

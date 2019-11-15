@@ -91,6 +91,8 @@
                 </tr>
             
         </table>
+        @foreach ($requests as $request)
+        @if ($request->status == 'pending') 
         <table class="table">
             <h2 class="text-left">Aanvragen voor scheidsrechter</h1>
             <tr>
@@ -98,30 +100,33 @@
                 <th class="col">E-mail</th>
                 <th class="col">Telefoonummer</th>
                 <th class="col" colspan="2">Instellingen</th>
-            </tr>
-                @foreach ($requests as $request)
-                    @if ($request->status == 'pending')    
+                <th></th>
+            </tr>   
               
                 <tr>
                     <td>{{ $tournamentUser->name }}</td>
                     <td>{{ $tournamentUser->email }}</td>
                     <td>{{ $tournamentUser->phone_number }}</td>
-                    <td><a href="{{ action('TournamentAdminController@addReferee', [
-                        'tournamentId' => $tournament->id, 
-                        'userId' => $tournamentUser->id ]) }}">Accepteer
-                        </a></td>
-                    <td><a href="{{ action('TournamentAdminController@denyReferee', [
+                    <td><a class="text-success" href="{{ action('TournamentAdminController@addReferee', [
                         'tournamentId' => $tournament->id,
                         'userId' => $tournamentUser->id
-                        ])}}">Sta niet toe</a></td>
+                        ])}}">Accepteren </a>
+                        <a class="text-danger" href="{{ action('TournamentAdminController@denyReferee', [
+                        'tournamentId' => $tournament->id,
+                        'userId' => $tournamentUser->id
+                        ])}}"> Afwijzen</a></td>
                 </tr>
+                    <td></td>
+                </tr>
+            </table>
                 @endif
             @endforeach
         @endforeach
             
             
-        </table>
+        
         <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
+        <a href="{{ url('admin.referee')}}" class="btn btn-warning">Scheidsrechters</a>
     </div>
 
 @endsection
