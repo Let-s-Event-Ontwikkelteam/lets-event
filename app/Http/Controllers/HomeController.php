@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Enums\RoleEnum;
 use App\Role;
 use App\Tournament;
