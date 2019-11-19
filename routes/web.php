@@ -31,7 +31,7 @@ Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartD
     ->name('tournament.leave');
 
 // Temporary
-Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
+// Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
 
 // Tournament admin controller routes.
 Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
