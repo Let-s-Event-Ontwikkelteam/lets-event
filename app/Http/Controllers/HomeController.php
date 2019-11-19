@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Enums\RoleEnum;
 use App\Role;
-use App\Enums\RoleEnum;
-use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
+use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +29,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-
         return view('welcome');
     }
 
@@ -42,8 +40,8 @@ class HomeController extends Controller
         $tournamentsWhereUserIsNotParticipant = null;
 
         if (Auth::check()) {
-            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT )->first()->id;
-            $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
+            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT)->first()->id;
+            $organizerRoleId = Role::all()->firstWhere('name', RoleEnum::ORGANIZER)->id;
 
             // TODO: Check inbouwen om te kijken of id wel bestaat.
             // Ga na aan welke toernooien de gebruiker deelneemt.
