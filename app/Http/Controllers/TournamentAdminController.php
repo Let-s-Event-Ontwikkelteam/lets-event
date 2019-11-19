@@ -21,13 +21,6 @@ class TournamentAdminController extends Controller
     public function show($tournamentId)
     {
         $tournament = Tournament::findOrFail($tournamentId);
-
-        $requests = RefereeRequest::where([
-            'tournament_id' => $tournamentId,
-            'status' => 'pending'
-        ])->get();
-
-
         // Alle tournamentUserRole records voor dit toernooi.
         $tournamentUserRoles = TournamentUserRole::where('tournament_id', $tournament->id)->get();
         // Alle gebruikers van het toernooi (inclusief beheerders, deelnemers etc).
@@ -53,10 +46,20 @@ class TournamentAdminController extends Controller
             return $tournamentUser;
         });
 
+        $refereeRequests = RefereeRequest::where([
+            'tournament_id' => $tournamentId,
+            'status' => 'pending'
+        ])->get()->map(function($refereeRequest) {
+            $user = User::find($refereeRequest->user_id);
+            $refereeRequest->user = $user;
+            return $refereeRequest;   
+        });;
+
+
         return view('tournament.admin.show')->with([
             'tournament' => $tournament,
             'tournamentUsers' => $tournamentUsers,
-            'requests' => $requests
+            'requests' => $refereeRequests
         ]);
     }
 
@@ -216,5 +219,10 @@ class TournamentAdminController extends Controller
         
         // Redirect terug naar de vorige pagina.
         return redirect()->back()->with('message', 'De aanvraag voor scheidsrechter is afgewezen.');
+    }
+
+    public function showReferee($tournamentId)
+    {
+        return view('referee.index');
     }
 }

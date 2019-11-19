@@ -44,9 +44,10 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         ->name('tournament.admin.storeUser');
     Route::get('/tournament/{tournamentId}/admin/add/{userId}', 'TournamentAdminController@addReferee')
         ->name('tournament.addReferee');
-
     Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
         ->name('tournament.denyReferee');
+    Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
+        ->name('tournament.showReferee');
 
         
 });
