@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['setLanguage'])->group(function () {
+// Route::middleware(['setLanguage'])->group(function () {
     Auth::routes();
 
     Route::get('/', 'HomeController@index')
@@ -41,6 +41,8 @@ Route::middleware(['setLanguage'])->group(function () {
             ->name('tournament.admin.deleteUser');
         Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
             ->name('tournament.admin.storeUser');
+    // starttournament
+
     });
 
     // 'Widget' from dashboard
@@ -68,6 +70,4 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         ->name('tournament.admin.deleteUser');
     Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
         ->name('tournament.admin.storeUser');
-
-        
 });
