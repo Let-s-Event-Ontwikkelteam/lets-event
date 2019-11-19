@@ -1,5 +1,3 @@
-console.log('All cookies:', document.cookie);
-
 setUserLanguage = language => {
     let availableLanguages = ['nl', 'en'];
 
