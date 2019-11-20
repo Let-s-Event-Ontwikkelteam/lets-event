@@ -14,16 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -42,6 +32,9 @@ class HomeController extends Controller
         if (Auth::check()) {
             $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT)->first()->id;
             $organizerRoleId = Role::all()->firstWhere('name', RoleEnum::ORGANIZER)->id;
+            
+            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT )->first()->id;
+            $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
 
             // TODO: Check inbouwen om te kijken of id wel bestaat.
             // Ga na aan welke toernooien de gebruiker deelneemt.
