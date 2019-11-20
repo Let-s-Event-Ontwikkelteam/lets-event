@@ -148,4 +148,11 @@ class TournamentAdminController extends Controller
         return redirect()->back()
             ->with('successMessage', 'De rol is aan de gebruiker toegevoegd.');
     }
+
+    public function startTournament() {
+    // if tourney is in the future: status = upcoming
+    // if tourney is in the past: status = finished
+    // if tourney is on the same day as start_date_time status = ongoin
+    }
+
 }

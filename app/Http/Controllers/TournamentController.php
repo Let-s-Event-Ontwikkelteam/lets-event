@@ -103,7 +103,8 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'start-date-time' => 'required|date_format:Y-m-d\TH:i'
+            'start-date-time' => 'required|date_format:Y-m-d\TH:i',
+            'status' => 'nullable|string|max255'
         ]);
 
         if ($request->input('start-date-time') < now()) {
@@ -115,7 +116,8 @@ class TournamentController extends Controller
         $createdTournament = Tournament::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'start_date_time' => $request->input('start-date-time')
+            'start_date_time' => $request->input('start-date-time'),
+            'status' => $request->input('status')
         ]);
 
         $organizerRoleId = Role::getByName(RoleEnum::ORGANIZER)->id;

@@ -18,9 +18,15 @@ class CreateTournamentsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->dateTime('start_date_time');
+<<<<<<< Updated upstream
+=======
+            $table->string('status')->nullable();
+>>>>>>> Stashed changes
             $table->timestamps();
         });
     }
+
+    
 
     /**
      * Reverse the migrations.
