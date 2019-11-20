@@ -33,15 +33,6 @@ Route::middleware(['setLanguage'])->group(function () {
     Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')
         ->name('tournament.leave');
 
-    // Tournament admin controller routes.
-    Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
-        Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
-            ->name('tournament.admin.show');
-        Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
-            ->name('tournament.admin.deleteUser');
-        Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
-            ->name('tournament.admin.storeUser');
-    });
 
     // 'Widget' from dashboard
     Route::get('/stats', 'HomeController@stats')->name('stats');
@@ -59,7 +50,6 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
     Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
         ->name('tournament.denyReferee');
     Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
-        ->name('tournament.showReferee');
-
-        
+        ->name('tournament.showReferee');   
+});
 });

@@ -46,6 +46,8 @@ class TournamentAdminController extends Controller
             return $tournamentUser;
         });
 
+        //haal alle scheidsrechters op van dit toernament met een status van pending
+        //zoek de user van elke scheids en plaats daar de data in van users zodat je zijn naam enzv kan gebruiken.
         $refereeRequests = RefereeRequest::where([
             'tournament_id' => $tournamentId,
             'status' => 'pending'
@@ -55,7 +57,7 @@ class TournamentAdminController extends Controller
             return $refereeRequest;   
         });;
 
-
+        //stuur de gebruiker naar admin/show met het tournament id, de spelers en de aanvragen voor scheidsrechters.
         return view('tournament.admin.show')->with([
             'tournament' => $tournament,
             'tournamentUsers' => $tournamentUsers,
@@ -192,7 +194,7 @@ class TournamentAdminController extends Controller
         ]);
         
         // Redirect terug naar de vorige pagina.
-        return redirect()->route('tournament.index')->with('message', 'Scheidsrechter is succesvol aangemaakt.');
+        return redirect()->back()->with('message', 'Scheidsrechter is succesvol aangemaakt.');
     }
     public function denyReferee($tournamentId, $userId)
     {
@@ -223,6 +225,21 @@ class TournamentAdminController extends Controller
 
     public function showReferee($tournamentId)
     {
-        return view('referee.index');
+        //pak all referees van dit toernooi
+        //loop door alle data en zoek bij elke referee zijn User ID
+        //zet alle data van de user in de $referee->user variable
+         $allReferees = RefereeRequest::where([
+             'tournament_id' => $tournamentId
+         ])->get()->map(function($referee) {
+             $user = User::find($referee->user_id);
+             $referee->user = $user;
+             return $referee;
+         });
+         
+         //stuur naar referee index met het tournament id en alle referees van dit toernooi.
+        return view('tournament.admin.referee.index')->with([
+            'tournamentId' => $tournamentId,
+            'allReferees' => $allReferees
+        ]);
     }
 }
