@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware(['setLanguage'])->group(function () {
     Auth::routes();
 
@@ -52,6 +51,6 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
     Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
         ->name('tournament.showReferee');   
 
-        
+    
 });
 });
