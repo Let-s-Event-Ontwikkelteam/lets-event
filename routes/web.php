@@ -51,5 +51,7 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         ->name('tournament.denyReferee');
     Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
         ->name('tournament.showReferee');   
+
+        
 });
 });
