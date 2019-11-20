@@ -308,11 +308,9 @@ class TournamentController extends Controller
     }
     public function requestReferee($tournamentId)
     {
-        //zoek het id van de referee
-        $refereeRoleId = Role::all()->firstWhere('name', '=', 'referee')->id;
-
-        //kijk of deze user al een scheids is, als dat zo is stuur dan een foutcode
-        $existingRecord = TournamentUserRole::where([
+ 
+        //kijk of deze user al eens heeft gevraagd om scheids te worden, als dat zo is stuur dan een foutcode
+        $existingRecord = RefereeRequest::where([
             'tournament_id' => $tournamentId,
             'user_id' => Auth::id()
         ]);
@@ -320,7 +318,7 @@ class TournamentController extends Controller
         if ($existingRecord->count()) {
             return redirect()
                 ->route('tournament.index')
-                ->withErrors(array('joinRefereeError' => 'Je bent al een scheidsrechter!'));
+                ->withErrors(array('joinRefereeError' => 'Je hebt al een verzoek verstuurd of je bent afgewezen.'));
         }
 
         // Maak een request aan in de referee request table
