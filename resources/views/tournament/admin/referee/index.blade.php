@@ -25,13 +25,11 @@
                 @php
                     $color = 'success';
                 @endphp
-            @endif
-            @if ($referee->status == 'pending')
+            @elseif($referee->status == 'pending')
                 @php
                     $color = 'warning';
                 @endphp
-            @endif
-            @if ($referee->status == 'denied')
+            @elseif ($referee->status == 'denied')
                 @php
                     $color = 'danger';
                     $accept = ''
