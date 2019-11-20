@@ -127,7 +127,7 @@ var pieChart = new Chart(myChart, {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/bartarentze/Projects/lets-event/resources/js/charts/homeChart.js */"./resources/js/charts/homeChart.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\lets-event-1\resources\js\charts\homeChart.js */"./resources/js/charts/homeChart.js");
 
 
 /***/ })
