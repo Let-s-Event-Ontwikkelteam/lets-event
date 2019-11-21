@@ -68,44 +68,44 @@
                     <a href="{{ route('tournament.leave', [
                                     'tournamentId' => $tournament->id,
                                     'tournamentStartDateTime' => $tournament->start_date_time
-                                ]) }}" class="btn btn-link btn-custom text-danger">Verlaat toernooi</a>
-                </td>
+                                ]) }}"
+                               class="btn btn-link btn-custom text-danger">Verlaat toernooi</a>
+                        </td>
+                    @else
+                        <td>
+                            <a href="{{ route('tournament.join', $tournament->id) }}"
+                               class="btn btn-link btn-custom text-success">Meedoen aan toernooi</a>
+                        </td>
+                    @endif
+                    @if ($tournament->isReferee)
+                    <td><a class="text-danger" href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als scheidsrechter</a></td>
                 @else
-                <td>
-                    <a href="{{ route('tournament.join', $tournament->id) }}"
-                        class="btn btn-link btn-custom text-success">Meedoen aan toernooi</a>
-                </td>
+                    <td><a class="text-success" href="{{ action('TournamentController@requestReferee', $tournament->id) }}">Wordt scheidsrechter</a></td>
                 @endif
-                @if($tournament->isOrganizer)
-                <td>
-                    <a href="{{ route('tournament.admin.show', $tournament->id) }}"
-                        class="text-success">Instellingen</a>
-                </td>
-                <td>
-                    <a href="{{ route('tournament.edit', $tournament->id) }}" class="text-primary">Bewerken</a>
-                </td>
-                <td>
-                    <form action="{{ action('TournamentController@destroy', $tournament->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-custom text-danger">Verwijderen</button>
-                    </form>
-                </td>
+                    @if($tournament->isOrganizer)
+                        <td>
+                            <a href="{{ route('tournament.admin.show', $tournament->id) }}" class="text-success">Instellingen</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('tournament.edit', $tournament->id) }}" class="text-primary">Bewerken</a>
+                        </td>
+                        <td>
+                            <form action="{{ action('TournamentController@destroy', $tournament->id) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-custom text-danger">Verwijderen</button>
+                            </form>
+                        </td>
 
-                @else
-                {{--  Todo: Betere manier bedenken  --}}
-                <td></td>
-                <td></td>
-                <td></td>
-                @endif
-                @if ($tournament->isReferee)
-                <td><a href="{{ action('TournamentController@deleteReferee', $tournament->id)}}">Verlaat als
-                        scheidsrechter</a></td>
-                @else
-                <td><a href="{{ action('TournamentController@requestReferee', $tournament->id) }}">Wordt
-                        scheidsrechter</a></td>
-                @endif
-            </tr>
+                    @else
+                        {{--  Todo: Betere manier bedenken  --}}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    @endif
+
+                </tr>
             @endforeach
         </tbody>
     </table>
