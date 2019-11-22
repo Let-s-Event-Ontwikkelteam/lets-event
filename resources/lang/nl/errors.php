@@ -9,12 +9,12 @@ return [
     | The following language lines are used for error messages that we need to display to the user.
     |
     */
+    
+     'errorPageTitle404' => 'OEPS! Er is iets misgegaan',
+    'errorPageDescription404' => 'De gevraagde pagina bestaat niet. Ga voor de zekerheid na of de opgegeven pagina echt bestaat.
+    Controleer de URL',
 
-    'errorPageTitle404' => 'Nederlandse 404 error',
-    'errorPageDescription404' => 'Deze foutcode komt voor als je een niet bestaand adres opzoekt. check voor de zekerheid je URL of je word
-     doorgeleid naar het juiste adres',
-
-    'errorPageTitle500' => 'OEF HELAAS IS ER IETS FOUT GEGAAN',
+    'errorPageTitle500' => 'OEPS! Er is iets misgegaan',
     'errorPageDescription500' => 'De webserver kan er niet achter gekomen waar het fout is gegaan',
 
 ];
