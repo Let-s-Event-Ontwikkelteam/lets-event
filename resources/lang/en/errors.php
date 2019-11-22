@@ -10,11 +10,11 @@ return [
     |
     */
 
-    'errorPageTitle404' => 'Engelse 404 error',
-    'errorPageDescription404' => 'Deze foutcode komt voor als je een niet bestaand adres opzoekt. check voor de zekerheid je URL of je word
-     doorgeleid naar het juiste adres',
+    'errorPageTitle404' => "OOPS! That’s an error (404 page not found)",
+    'errorPageDescription404' => "The requested URL was not found on this server. That’s all we know.",
 
-    'errorPageTitle500' => 'OEF HELAAS IS ER IETS FOUT GEGAAN',
-    'errorPageDescription500' => 'De webserver kan er niet achter gekomen waar het fout is gegaan',
+    'errorPageTitle500' => "OOps! That's an error (500 internal server error)",
+    'errorPageDescription500' => "An unexpected error seems to have occured. Why not try refreshing your page?
+    contact us if the problemn persists.",
 
 ];
