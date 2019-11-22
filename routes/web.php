@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['setLanguage'])->group(function () {
     Auth::routes();
 
-Route::middleware(['setLanguage'])->group(function () {
-    Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
 
