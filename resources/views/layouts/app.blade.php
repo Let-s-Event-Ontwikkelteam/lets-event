@@ -26,22 +26,6 @@
 {{--    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">--}}
 </head>
 <body>
-<<<<<<< Updated upstream
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        @auth
-=======
 <div id="app">
 De taal is {{ App::getLocale()}}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -80,7 +64,6 @@ De taal is {{ App::getLocale()}}
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Inloggen') }}</a>
                         </li>
                         @if (Route::has('register'))
->>>>>>> Stashed changes
                             <li class="nav-item">
                                 <a class="nav-link font-weight-bolder" href="{{ url('tournament') }}">{{ __('Toernooien') }}</a>
                             </li>
