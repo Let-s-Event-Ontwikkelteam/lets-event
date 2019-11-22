@@ -14,7 +14,7 @@ return [
     'errorPageDescription404' => 'De gevraagde pagina bestaat niet. Ga voor de zekerheid na of de opgegeven pagina echt bestaat.
     Controleer de URL',
 
-    'errorPageTitle500' => 'OEF HELAAS IS ER IETS FOUT GEGAAN',
+    'errorPageTitle500' => 'OEPS! Er is iets misgegaan',
     'errorPageDescription500' => 'De webserver kan er niet achter gekomen waar het fout is gegaan',
 
 ];

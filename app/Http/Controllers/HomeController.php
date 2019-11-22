@@ -3,44 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Enums\RoleEnum;
 use App\Role;
-use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
+use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        
         return view('welcome');
     }
 
     public function dashboard()
     {
         $user = Auth::user();
-        
+
         $userTournaments = null;
         $tournamentsWhereUserIsNotParticipant = null;
 
         if (Auth::check()) {
-            $participantRoleId = Role::all()->firstWhere('name', '=', 'participant')->id;
+            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT)->first()->id;
+            $organizerRoleId = Role::all()->firstWhere('name', RoleEnum::ORGANIZER)->id;
+            
+            $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT )->first()->id;
             $organizerRoleId = Role::all()->firstWhere('name', '=', 'organizer')->id;
 
             // TODO: Check inbouwen om te kijken of id wel bestaat.
@@ -70,7 +63,7 @@ class HomeController extends Controller
         // users doesnt get passed to view
         return view('home')->with([
             'tournaments' => $userTournaments,
-            'tournamentsWhereUserIsNotParticipant' => $tournamentsWhereUserIsNotParticipant, 
+            'tournamentsWhereUserIsNotParticipant' => $tournamentsWhereUserIsNotParticipant,
             'user' => $user
         ]);
     }
@@ -82,7 +75,7 @@ class HomeController extends Controller
         $mytime = $time->toDateTimeString();
 
             //kijk of de current time kleiner is dan de tijd waarop het toernooi start
-            //als dit zo is dan wordt de persoon verwijderd 
+            //als dit zo is dan wordt de persoon verwijderd
             //als dit niet zo is wordt hij redirect terug naar de pagina met een message
             if ($mytime < $tourneyTime) {
         TournamentUserRole::where([
@@ -94,7 +87,7 @@ class HomeController extends Controller
 
         }
         else{
-        return redirect()->route('dashboard')->with('message', 'Je kan het toernooi niet verlaten omdat het al begonnen is.');     
+        return redirect()->route('dashboard')->with('message', 'Je kan het toernooi niet verlaten omdat het al begonnen is.');
         }
     }
 

@@ -89,8 +89,9 @@
                 @endif
             </td>
         </tr>
-
+        @endforeach
     </table>
+
     <table class="table">
         <h2 class="text-left">Aanvragen voor scheidsrechter</h1>
             <tr>
@@ -98,21 +99,37 @@
                 <th class="col">E-mail</th>
                 <th class="col">Telefoonummer</th>
                 <th class="col" colspan="2">Instellingen</th>
+                <th></th>
             </tr>
-            @if ($tournament->isReferee)
+            <<<<<<< HEAD @if ($tournament->isReferee)
 
-            <tr>
-                <td>{{$tournamentUser->name}}</td>
-                <td>test</td>
-                <td></td>
-            </tr>
-            @endif
-            @endforeach
-
-
+                =======
+                @foreach ($requests as $request)
+                >>>>>>> develop
+                <tr>
+                    <td>{{ $request->user->name }}</td>
+                    <td>{{ $request->user->email }}</td>
+                    <td>{{ $request->user->phone_number }}</td>
+                    <td><a class="text-success" href="{{ action('TournamentAdminController@addReferee', [
+                        'tournamentId' => $tournament->id,
+                        'userId' => $request->user->id
+                        ])}}">Accepteren </a>
+                        <a class="text-danger" href="{{ action('TournamentAdminController@denyReferee', [
+                        'tournamentId' => $tournament->id,
+                        'userId' => $request->user->id
+                        ])}}"> Afwijzen</a></td>
+                </tr>
+                @endforeach
+                <<<<<<< HEAD </table> <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het
+                    overzicht</a>
+                    <a href="#" class="btn btn-primary">@lang('tournament.starttournament')</a>
+                    =======
     </table>
+
+
     <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
-    <a href="#" class="btn btn-primary">@lang('tournament.starttournament')</a>
+    <a href="{{ route( 'tournament.showReferee' , $tournament->id)}}" class="btn btn-warning">Scheidsrechters</a>
+    >>>>>>> develop
 </div>
 
 @endsection
