@@ -101,11 +101,8 @@
                 <th class="col" colspan="2">Instellingen</th>
                 <th></th>
             </tr>
-            <<<<<<< HEAD @if ($tournament->isReferee)
-
-                =======
-                @foreach ($requests as $request)
-                >>>>>>> develop
+            @if ($tournament->isReferee)  
+                @foreach ($requests as $request)  
                 <tr>
                     <td>{{ $request->user->name }}</td>
                     <td>{{ $request->user->email }}</td>
@@ -120,16 +117,18 @@
                         ])}}"> Afwijzen</a></td>
                 </tr>
                 @endforeach
-                <<<<<<< HEAD </table> <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het
+                </table> <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het
                     overzicht</a>
                     <a href="#" class="btn btn-primary">@lang('tournament.starttournament')</a>
-                    =======
-    </table>
+                </table>
+            @endif
+
+            
 
 
     <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
     <a href="{{ route( 'tournament.showReferee' , $tournament->id)}}" class="btn btn-warning">Scheidsrechters</a>
-    >>>>>>> develop
 </div>
+
 
 @endsection

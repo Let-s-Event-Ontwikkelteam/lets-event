@@ -40,7 +40,7 @@ class TournamentController extends Controller
         $columnToSortBy = 'start_date_time';
         $requestColumnToSortBy = $request->get('columnToSortBy');
         if ($requestColumnToSortBy && (array_search($requestColumnToSortBy,
-                    ['id', 'name', 'description', 'start_date_time']) >= 0)) {
+                    ['id', 'name', 'description', 'start_date_time','status']) >= 0)) {
             $columnToSortBy = $requestColumnToSortBy;
         }
 
@@ -100,11 +100,13 @@ class TournamentController extends Controller
      */
     public function store(Request $request)
     {
+        
+           
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
             'start-date-time' => 'required|date_format:Y-m-d\TH:i',
-            'status' => 'nullable|string|max255'
+            // 'status' => 'required|string|max:50',
         ]);
 
         if ($request->input('start-date-time') < now()) {
@@ -112,6 +114,27 @@ class TournamentController extends Controller
                 ->withErrors(['De ingevulde startdatum ligt in het verleden.'])
                 ->withInput($request->all());
         }
+
+        /**
+         * Logica van statusinput betreft Tournament    
+         * start_date_time == now Starting
+         * start_date_time > now upcoming
+         *  */ 
+
+        $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
+        $mytime = $time->toDateTimeString();
+
+        if ( $request->input('start-date-time' > $mytime ) {
+            'status' > 'Upcoming'
+        });
+
+        // $tournamentStatus
+        // if ( $request->input('start-date-time') > now()) {
+            // 'status -> 'upcoming'
+        // });
+
+        
+
 
         $createdTournament = Tournament::create([
             'name' => $request->input('name'),
@@ -139,7 +162,7 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-//        $participantRoleId = RoleEnum::getByName('participant');
+    //  $participantRoleId = RoleEnum::getByName('participant');
         return view('tournament.show', compact('tournament'));
     }
 
@@ -187,7 +210,8 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'start-date-time' => 'required|date_format:Y-m-d\TH:i'
+            'start-date-time' => 'required|date_format:Y-m-d\TH:i',
+            'status' => 'required|string|max:50'
         ]);
 
         if ($request->input('start-date-time') < now()) {
@@ -197,7 +221,8 @@ class TournamentController extends Controller
         $tournament->update([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'start_date_time' => $request->get('start-date-time')
+            'start_date_time' => $request->get('start-date-time'),
+            'status' => $request->get('status')
         ]);
 
         return redirect()->route('tournament.index')->with('message', 'Je hebt met succes een toernooi gewijzigd!');

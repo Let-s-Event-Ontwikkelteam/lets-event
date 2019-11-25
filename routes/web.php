@@ -33,16 +33,6 @@ Route::middleware(['auth'])->group(function () {
     // Temporary
     // Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
 
-    // Tournament admin controller routes.
-    Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
-        Route::get('/tournament/{tournamentId}/admin', 'TournamentAdminController@show')
-            ->name('tournament.admin.show');
-        Route::delete('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@deleteUser')
-            ->name('tournament.admin.deleteUser');
-        Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
-            ->name('tournament.admin.storeUser');
-    });
-
 // Temporary
 Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
 
@@ -59,7 +49,9 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
     Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
         ->name('tournament.denyReferee');
     Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
-        ->name('tournament.showReferee');       
+        ->name('tournament.showReferee');   
+    Route::get('/tournament/{tournamentId}/admin/starttournament', 'TournamentAdminController@startTournament')
+        ->name('tournament.admin.start');    
 });
 
 // 'Widget' from dashboard
