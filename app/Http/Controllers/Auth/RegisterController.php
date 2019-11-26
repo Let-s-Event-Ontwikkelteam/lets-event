@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Enums\FieldValidationRule;
+use App\Enums\FieldValidationRuleEnum;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -52,7 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', FieldValidationRule::PHONE_NUMBER],
+            'phone_number' => ['required', FieldValidationRuleEnum::PHONE_NUMBER],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
     }

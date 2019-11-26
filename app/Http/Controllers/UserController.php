@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Enums\FieldValidationRule;
+use App\Enums\FieldValidationRuleEnum;
 use Illuminate\Support\Facades\Validator;
 use App\User;
-use Auth;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -35,9 +34,11 @@ class UserController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required',
-            'email' => 'required', 'unique:users, email,$this->id,id',
-            'phone_number' => ['required', FieldValidationRule::PHONE_NUMBER],
+            'email' => 'required', 'unique:users, email',
+            'phone_number' => ['required', FieldValidationRuleEnum::PHONE_NUMBER],
         ]);
+
+        
 
         // Set the data from the form in a request
         $user->name = $request->name;
