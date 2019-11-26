@@ -62,7 +62,7 @@
                         </li>
                         @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registreer') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registreren') }}</a>
                         </li>
                         @endif
                         @else
@@ -77,6 +77,9 @@
                                 </a>
                                 <a class="dropdown-item" href="{{ route('user.index', ['id' => auth()->user()->id]) }}">
                                     {{ __('Account instellingen') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('widget.index') }}">
+                                    {{ __('Widget instellingen') }}
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

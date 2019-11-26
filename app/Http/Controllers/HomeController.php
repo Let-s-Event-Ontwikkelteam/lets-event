@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Enums\RoleEnum;
 use App\Role;
+use App\Widget;
 use App\Tournament;
 use App\TournamentUserRole;
 use Carbon\Carbon;
@@ -93,5 +94,20 @@ class HomeController extends Controller
 
     public function Stats() {
         return view('statistics.index');
+    }
+    public function widget()
+    {
+        return View('widget.index');
+    }
+    public function widgetEdit($widgetName)
+    {
+        $currentWidget = Widget::where([
+            'name' => $widgetName,
+            'user_id' => Auth::id(),
+        ])->get();
+
+        if ($currentWidget->status = false) {
+            
+        }
     }
 }
