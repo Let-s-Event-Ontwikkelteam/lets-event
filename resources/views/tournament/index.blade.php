@@ -113,7 +113,7 @@
                         {{--  Todo: Betere manier bedenken  --}}
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td></td>  
                     @endif
 
                 </tr>

@@ -31,12 +31,6 @@
             <input class="form-control" type="datetime-local" id="start-date-time" max="2100-12-31T00:00" name="start-date-time" {{ old('start-date-time') }} required>
         </div>
 
-        <!-- temp solution -->
-        <div class="form-group">
-            <label for="status">Status *</label>
-            <input class="form-control" id="status" name="status"> 
-        </div> 
-
         <button type="submit" class="button btn btn-primary">Maak toernooi</button>
 </div>
 

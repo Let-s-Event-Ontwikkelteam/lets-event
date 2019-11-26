@@ -9,6 +9,8 @@ use App\Tournament;
 use App\TournamentUserRole;
 use App\User;
 use App\RefereeRequest;
+use Carbon\Carbon;
+use DateTimeZone;
 
 class TournamentAdminController extends Controller
 {
@@ -242,4 +244,29 @@ class TournamentAdminController extends Controller
             'allReferees' => $allReferees
         ]);
     }
+
+     /**
+      * 
+      * door middel van deze functie kan een organiser een toernooi handmatig starten
+      */
+    public function adminStartTournament( $tournamentId){
+        // check of de user een admin is
+
+        $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
+        $myTime = $time->toDateTimeString();
+
+        // $role = Role::getByName($roleName); 
+
+
+        Tournament::WHERE([
+            'id' => $tournamentId
+            ])->update([
+            'start_date_time' => $myTime,
+            'status' => 'Gestart'
+        ]);
+
+         // Redirect terug naar de vorige pagina.
+         return redirect('tournament')->with('message', 'Het toernooi is gestart.');
+    }
+
 }

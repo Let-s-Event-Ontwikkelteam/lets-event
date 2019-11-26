@@ -31,11 +31,6 @@
             <input class="form-control" type="datetime-local" id="start-date-time" name="start-date-time" max="2100-12-31T00:00" value="{{ $tournament->start_date_time_formatted }}">
         </div>
 
-        <!-- temp solution -->
-        <div class="form-group">
-            <label for="status">Status *</label>
-            <input class="form-control" id="status" name="status" value="{{ $tournament->status }}"> 
-        </div>
 
         <button type="submit" class="btn btn-primary">Sla wijzigingen op</button>
 </div>
