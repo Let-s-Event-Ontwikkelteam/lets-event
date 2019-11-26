@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Enums\FieldValidationRule;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use Auth;
@@ -26,7 +27,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required', 'unique:users, email,$this->id,id',
-            'phone_number' => ['required', 'regex:/^([+]31)\s06(-)([0-9]\s{0,3}){8}$/u'],
+            'phone_number' => ['required', FieldValidationRule::PHONE_NUMBER],
         ]);
         /* Search for the ID from the User */
         $user = Auth::user();
