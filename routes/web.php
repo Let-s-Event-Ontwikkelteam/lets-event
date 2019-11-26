@@ -49,8 +49,6 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
     Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
         ->name('tournament.denyReferee');
     Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
-        ->name('tournament.showReferee');   
-
-    
+        ->name('tournament.showReferee');       
 });
 });
