@@ -3,31 +3,38 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Route::middleware(['setLanguage'])->group(function () {
+    Auth::routes();
 
-
-Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('/', 'HomeController@index')->name('home');
-
-/* Account en dashboard routes. */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user/settings', 'UserController@show')
-        ->name('user.index');
-    Route::post('/user/settings/update', 'UserController@update')
-        ->name('user.update');
-    Route::get('/dashboard', 'HomeController@dashboard')
+    Route::get('/', 'HomeController@index')
         ->name('dashboard');
-});
+    Route::get('/', 'HomeController@index')
+        ->name('home');
 
-// Tournament controller routes.
-Route::resource('tournament', 'TournamentController');
-Route::get('/tournament/{tournamentId}/join', 'TournamentController@join')
-    ->name('tournament.join');
-Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')
-    ->name('tournament.leave');
+    // Account en dashboard routes.
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/user/settings', 'UserController@show')
+            ->name('user.index');
+        Route::post('/user/settings/update', 'UserController@update')
+            ->name('user.update');
+        Route::get('/dashboard', 'HomeController@dashboard')
+            ->name('dashboard');
+    });
 
-// Temporary
-Route::get('/tournament/sort', 'SortController@sortTournaments')->name('tournament.sort');
+    // Tournament controller routes.
+    Route::resource('tournament', 'TournamentController');
+    Route::get('/tournament/{tournamentId}/join', 'TournamentController@join')
+        ->name('tournament.join');
+    Route::get('/tournament/{tournamentId}/requestReferee', 'TournamentController@requestReferee')
+        ->name('tournament.requestReferee');
+    Route::get('/tournament/{tournamentId}/deleteReferee', 'TournamentController@deleteReferee')
+        ->name('tournament.deleteReferee');
+    Route::get('/tournament/{tournamentId}/tournamentStartDateTime/{tournamentStartDateTime}/leave', 'TournamentController@leave')
+        ->name('tournament.leave');
+
+
+    // 'Widget' from dashboard
+    Route::get('/stats', 'HomeController@stats')->name('stats');
 
 // Tournament admin controller routes.
 Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
@@ -37,8 +44,11 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
         ->name('tournament.admin.deleteUser');
     Route::post('/tournament/{tournamentId}/admin/user/{userId}/role/{roleName}', 'TournamentAdminController@storeUser')
         ->name('tournament.admin.storeUser');
-        
+    Route::get('/tournament/{tournamentId}/admin/add/{userId}', 'TournamentAdminController@addReferee')
+        ->name('tournament.addReferee');
+    Route::get('/tournament/{tournamentId}/admin/deny/{userId}', 'TournamentAdminController@denyReferee')
+        ->name('tournament.denyReferee');
+    Route::get('/tournament/{tournamentId}/admin/referee', 'TournamentAdminController@showReferee')
+        ->name('tournament.showReferee');       
 });
-
-// 'Widget' from dashboard
-Route::get('/stats','HomeController@stats')->name('stats');
+});
