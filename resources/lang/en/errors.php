@@ -15,5 +15,5 @@ return [
 
     'errorPageTitle500' => "OOps! That's an error (500 internal server error)",
     'errorPageDescription500' => "An unexpected error seems to have occured. Why not try refreshing your page?
-    contact us if the problemn persists.",
+    contact us if the problem persists.",
 ];

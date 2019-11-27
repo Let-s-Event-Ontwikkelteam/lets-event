@@ -53,5 +53,4 @@ Route::middleware(['auth', 'hasOrganizerRole'])->group(function () {
 
 // 'Widget' from dashboard
 Route::get('/stats','HomeController@stats')->name('stats');
-
 });
