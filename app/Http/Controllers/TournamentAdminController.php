@@ -252,10 +252,10 @@ class TournamentAdminController extends Controller
     }
 
      /**
-      * @param $tournamentId
       * door middel van deze functie kan een organiser een toernooi handmatig starten.
       * d.m.v een toernooi de starttijd gelijk te zetten aan de plaatstelijke tijd.
       * Deze functie staat verbonden met de Update funtie binnen TournamentController.
+      * @param $tournamentId
       */
     public function adminStartTournament( $tournamentId ){
         $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
