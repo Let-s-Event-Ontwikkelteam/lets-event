@@ -121,6 +121,9 @@
 
     <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
     <a href="{{ route( 'tournament.showReferee' , $tournament->id)}}" class="btn btn-warning">Scheidsrechters</a>
+    <a href="{{ action('TournamentAdminController@adminStartTournament', [
+        'tournamentId' => $tournament->id,
+        ]) }}" class="btn btn-success">Start toernooi</a>
 </div>
 
 @endsection
