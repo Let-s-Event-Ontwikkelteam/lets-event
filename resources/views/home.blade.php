@@ -73,7 +73,7 @@
 
             <div class="col-sm-6">
                 <div class="card">
-                    <h5 class="card-header"><b>Account Instellingen</b> </h5>
+                    <h5 class="card-header"><b>Account Instellingen</b></h5>
                     <div class="card-body">
                         <ul class="noListStyling">
                             <h4>
@@ -92,7 +92,7 @@
         <div class="row mt-5">
             <div class="col-sm-6">
                 <div class="card">
-                    <h5 class="card-header"><b>Statistieken voor Nerds</b> </h5>
+                    <h5 class="card-header"><b>Statistieken voor Nerds</b></h5>
                     <div class="card-body">
                         <canvas id="miniChart"></canvas>
                         <a href="{{ url('stats') }}" class="btn btn-primary">Ga naar Statistieken voor Nerds</a>
