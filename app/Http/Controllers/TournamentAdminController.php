@@ -9,6 +9,8 @@ use App\Role;
 use App\Tournament;
 use App\TournamentUserRole;
 use App\User;
+use Carbon\Carbon;
+use DateTimeZone;
 
 class TournamentAdminController extends Controller
 {
@@ -248,4 +250,26 @@ class TournamentAdminController extends Controller
             'allReferees' => $allReferees
         ]);
     }
+
+     /**
+      * door middel van deze functie kan een organiser een toernooi handmatig starten.
+      * d.m.v een toernooi de starttijd gelijk te zetten aan de plaatstelijke tijd.
+      * Deze functie staat verbonden met de Update funtie binnen TournamentController.
+      * @param $tournamentId
+      */
+    public function adminStartTournament( $tournamentId ){
+        $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
+        $myTime = $time->toDateTimeString();
+    
+        Tournament::WHERE([
+            'id' => $tournamentId
+            ])->update([
+            'start_date_time' => $myTime,
+            'status' => 'Gestart'
+        ]);
+
+         // Redirect terug naar de vorige pagina.
+         return redirect('tournament')->with('message', 'Het toernooi is gestart.');
+    }
+
 }
