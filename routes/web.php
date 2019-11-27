@@ -21,7 +21,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('widget.index');
     Route::get('/widget/{widgetName}, HomeController@widgetEdit')
         ->name('widget.edit');
-    });
 });
 
     // Tournament controller routes.
