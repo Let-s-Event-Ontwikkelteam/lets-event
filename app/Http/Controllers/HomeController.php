@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Enums\RoleEnum;
 use App\Role;
-use App\Enums\RoleEnum;
-use Carbon\Carbon;
 use App\Tournament;
 use App\TournamentUserRole;
 use Carbon\Carbon;
