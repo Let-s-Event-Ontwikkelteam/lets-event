@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Enums\FieldValidationRuleEnum;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -13,9 +16,9 @@ class UserController extends Controller
      */
     public function show()
     {
-        /* Search for the ID from the User */
+        // Search for the ID from the User
         $user = Auth::user();
-        /* Return page back with the variable */
+        // Return page back with the variable
         return view('users.settings', ['user' => $user]);
     }
 
@@ -31,9 +34,11 @@ class UserController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required',
-            'email' => ['required', 'email', 'unique:users,email'],
-            'phone_number' => ['required', 'regex:/^([+]31)\s06(-)([0-9]\s{0,3}){8}$/u'],
+            'email' => 'required', 'unique:users, email',
+            'phone_number' => ['required', FieldValidationRuleEnum::PHONE_NUMBER],
         ]);
+
+        
 
         // Set the data from the form in a request
         $user->name = $request->name;
@@ -44,6 +49,6 @@ class UserController extends Controller
         $user->save();
 
         // Redirect back to the page and give a status with it
-        return redirect()->back()->with('message', 'Je hebt met succes je account instellingen gewijzigd!');
+        return redirect()->back()->with('message', __('app_messages.user.update.success'));
     }
 }

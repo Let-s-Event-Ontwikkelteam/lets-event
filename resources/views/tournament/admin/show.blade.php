@@ -89,9 +89,9 @@
                 @endif
             </td>
         </tr>
-@endforeach
+        @endforeach
     </table>
-    
+
     <table class="table">
         <h2 class="text-left">Aanvragen voor scheidsrechter</h1>
             <tr>
@@ -101,6 +101,7 @@
                 <th class="col" colspan="2">Instellingen</th>
                 <th></th>
             </tr>
+            @if ($tournament->isReferee)
             @foreach ($requests as $request)
             <tr>
                 <td>{{ $request->user->name }}</td>
@@ -116,9 +117,13 @@
                         ])}}"> Afwijzen</a></td>
             </tr>
             @endforeach
+    </table> <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het
+        overzicht</a>
+    <a href="#" class="btn btn-primary">@lang('tournament.starttournament')</a>
     </table>
+    @endif
 
-
+    
     <a href="{{ url('tournament') }}" class="btn btn-primary">Ga terug naar het overzicht</a>
     <a href="{{ route( 'tournament.showReferee' , $tournament->id)}}" class="btn btn-warning">Scheidsrechters</a>
     <a href="{{ action('TournamentAdminController@adminStartTournament', [
