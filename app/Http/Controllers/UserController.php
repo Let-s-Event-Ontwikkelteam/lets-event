@@ -16,9 +16,9 @@ class UserController extends Controller
      */
     public function show()
     {
-        /* Search for the ID from the User */
+        // Search for the ID from the User
         $user = Auth::user();
-        /* Return page back with the variable */
+        // Return page back with the variable
         return view('users.settings', ['user' => $user]);
     }
 
@@ -49,6 +49,6 @@ class UserController extends Controller
         $user->save();
 
         // Redirect back to the page and give a status with it
-        return redirect()->back()->with('message', 'Je hebt met succes je account instellingen gewijzigd!');
+        return redirect()->back()->with('message', __('app_messages.user.update.success'));
     }
 }
