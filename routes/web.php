@@ -17,7 +17,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('user.update');
     Route::get('/dashboard', 'HomeController@dashboard')
         ->name('dashboard');
-});
 
     // Tournament controller routes.
     Route::resource('tournament', 'TournamentController');
