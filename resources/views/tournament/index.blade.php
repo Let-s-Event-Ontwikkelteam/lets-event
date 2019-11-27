@@ -50,6 +50,16 @@
                     @endif
                 </th>
 
+                <th scope="col">
+                    @if ($columnToSortBy == 'status')
+                    <a
+                        href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=status&orderToSortBy={{ $newOrderToSortBy }}">Status</a>
+                    @else
+                    <a
+                        href="{{ route('tournament.index') }}?pageNumber={{ $pageNumber }}&columnToSortBy=status">Status</a>
+                    @endif
+                </th>
+
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col" colspan="3"></th>
@@ -63,6 +73,7 @@
                 </td>
                 <td>{{ $tournament->description }}</td>
                 <td>{{ $tournament->start_date_time }}</td>
+                <td>{{ $tournament->status }}</td>
                 @if($tournament->isParticipant)
                 <td>
                     <a href="{{ route('tournament.leave', [
@@ -102,7 +113,7 @@
                         {{--  Todo: Betere manier bedenken  --}}
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td></td>  
                     @endif
 
                 </tr>

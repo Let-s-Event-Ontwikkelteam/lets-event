@@ -40,7 +40,7 @@ class TournamentController extends Controller
         $columnToSortBy = 'start_date_time';
         $requestColumnToSortBy = $request->get('columnToSortBy');
         if ($requestColumnToSortBy && (array_search($requestColumnToSortBy,
-                    ['id', 'name', 'description', 'start_date_time']) >= 0)) {
+                    ['id', 'name', 'description', 'start_date_time','status']) >= 0)) {
             $columnToSortBy = $requestColumnToSortBy;
         }
 
@@ -103,7 +103,8 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'start-date-time' => 'required|date_format:Y-m-d\TH:i'
+            'start-date-time' => 'required|date_format:Y-m-d\TH:i',
+            'status' => 'string|max:50',
         ]);
 
         if ($request->input('start-date-time') < now()) {
@@ -115,7 +116,8 @@ class TournamentController extends Controller
         $createdTournament = Tournament::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'start_date_time' => $request->input('start-date-time')
+            'start_date_time' => $request->input('start-date-time'),
+            'status' => 'Upcoming'
         ]);
 
         $organizerRoleId = Role::getByName(RoleEnum::ORGANIZER)->id;
@@ -186,7 +188,8 @@ class TournamentController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'start-date-time' => 'required|date_format:Y-m-d\TH:i'
+            'start-date-time' => 'required|date_format:Y-m-d\TH:i',
+            'status' => 'string|max:50'
         ]);
 
         if ($request->input('start-date-time') < now()) {
@@ -196,7 +199,8 @@ class TournamentController extends Controller
         $tournament->update([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'start_date_time' => $request->get('start-date-time')
+            'start_date_time' => $request->get('start-date-time'),
+            'status' => 'Upcoming'
         ]);
 
         return redirect()->route('tournament.index')
@@ -290,12 +294,12 @@ class TournamentController extends Controller
     {
         $participantRoleId = Role::where('name', RoleEnum::PARTICIPANT)->first()->id;
         $time = Carbon::now(new DateTimeZone('Europe/Amsterdam'));
-        $mytime = $time->toDateTimeString();
+        $myTime = $time->toDateTimeString();
 
         //kijk of de current time kleiner is dan de tijd waarop het toernooi start
         //als dit zo is dan wordt de persoon verwijderd
         //als dit niet zo is wordt hij redirect terug naar de pagina met een message
-        if ($mytime < $tournamentStartDateTime) {
+        if ($myTime < $tournamentStartDateTime) {
             TournamentUserRole::where([
                 'tournament_id' => $tournamentId,
                 'user_id' => Auth::id(),
