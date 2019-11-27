@@ -45,11 +45,7 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
-        if ($exception instanceof CustomException) {
-            return redirect()->route('errors.custom', ['statusCode' => 500], 500);
-        }
-        
+    {        
         return parent::render($request, $exception);
     }
 }
